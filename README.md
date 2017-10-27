@@ -11,6 +11,6 @@ I have sometimes seen my coaches struggle with who to put in a relay team, and f
 
 ##### Limitations of this project. 😔
 As there is the constraint of 9 months to complete this Assignment (in addition to other school work) I have decided on the following:
-* No user login (no databases for individual people),
+* No user login / indivdual (private) records
 * Upload and export via CSV only (previous calculations also available through the site)
 * Will be hosted on heroku _(not yet implemented)_ until such a time I want/can afford hosting
