@@ -1,6 +1,6 @@
 # Swimming Relay Order Calculator 🏊
 ### What is the purpose of this website?
-The user can enter swimmers' names and times via either uploading a CSV file or completing a form on the site - this will be stored on a database. They can then detail the requirements of a relay team and select which swimmers they want to include, from which they will receive a report on different combinations of swimmers and strokes with their total time.
+The user can enter swimmers' names and times via completing a form on the site - this will be stored on a database. They can then detail the requirements of a relay team and select which swimmers they want to include, from which they will receive a report on different combinations of swimmers and strokes with their total time and an option to download.
 
 ---
 

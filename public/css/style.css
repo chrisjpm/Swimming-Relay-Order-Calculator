@@ -13,7 +13,7 @@
 }
 
 /*Removing default set margins and paddings*/
-html, body, h1, h2, h3, h4, h5, h6, p, span, div, table, ul, ol, li, a {
+html, body, h1, h2, h3, h4, h5, h6, p, span, div, table, ul, ol, li, a, input, form {
   margin: 0;
   padding: 0;
 }
@@ -28,32 +28,48 @@ html {
 
 /*Universal Classes*/
 /*(1) Layout*/
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
 .container {
 	margin: 0 4%; /*Gutters*/
   height: 100%;
 }
+/* For all pages except index*/
 .top-container {
-  height: 70vh;
+  height: 57vh;
+  margin-top: 12vh;
+}
+.top-container h2 {
   text-align: center;
-  margin-top: 25vh;
+}
+.top-container img {
+  height: 8vh;
+  display: block;
+  margin-top: 20vh;
+  margin-left: auto;
+  margin-right: auto
+}
+.body-container {
+  padding-top: 7vh;
 }
 /*(2) Buttons*/
 .btn {
   display: block;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  width: 90%;
-  border-radius: 9px;
+  border-radius: 12px;
+  padding: 10px;
+  height: 5vh;
+  line-height: 5vh;
 }
-.blockquote-white {
-  margin-top: 4vh;
-  border-left: 6px #fff solid;
-  padding-left: 10px;
+.btn-submit {
+  background-color: #1A9D49;
 }
-.blockquote-primary {
-  margin-top: 4vh;
-  border-left: 6px #397CC8 solid;
-  padding-left: 10px;
+.btn div div img {
+  height: 3vh;
+  margin-top: 1vh;
 }
 /*(3) Element Styling*/
 .shadow {
@@ -64,11 +80,10 @@ html {
 .nav-active {
   border-bottom: 3px #fff solid;
 }
-/*Row container (will have 12 columns)*/
+/*(4) Row*/
 .row {
   width: 100%;
   display: inline-flex;
-  text-align: center;
 }
 /*Columns*/
 .col-1 {
@@ -107,7 +122,7 @@ html {
 .col-12 {
   width: 100%;
 }
-/*Colouring text*/
+/*(5) Text*/
 .white-text {
   color: #fff;
 }
@@ -118,7 +133,7 @@ html {
   color: #7296D6;
 }
 .success-text {
-  color: #1A9D49
+  color: #1A9D49;
 }
 .alert-and-contrast-text {
   color: #FEB300;
@@ -126,13 +141,49 @@ html {
 .warning-text {
   color: #9D1A1A;
 }
-
-/*Removing link styling*/
+.blockquote-white {
+  margin-top: 4vh;
+  border-left: 6px #fff solid;
+  padding-left: 10px;
+}
+.blockquote-primary {
+  margin-top: 4vh;
+  border-left: 6px #397CC8 solid;
+  padding-left: 10px;
+}
+.centre {
+  text-align: center;
+}
+/*(6) Removing link styling*/
 a {
   text-decoration: none;
 }
-a:visited {
-  color: inherit;
+a.white-text:visited {
+  color: #fff;
+}
+a.primary-text:visited {
+  color: #397CC8;
+}
+/*(7) Form and table styling*/
+input {
+  width: 100%;
+}
+/*(8) Media Queries */
+/*To have the GIF use a fade animation I needed a background colour on it. I am hiding it when the GIF leaves the blue background image and hits the white (it doesn't look nice)*/
+@media screen and (max-width: 1482px) {
+  .top-container img {
+    display: none !important;
+  }
+}
+/*(9) Notices */
+.alert-notice {
+  height: 5vh;
+  background-color: #FEB300;
+  border-radius: 12px;
+  padding: 10px;
+}
+.alert-notice div div img {
+  height: 5vh;
 }
 
 /*Header, content and footer sizing and positioning*/
@@ -148,6 +199,7 @@ main#content-wrapper {
 footer#footer-wrapper {
 	min-height: 5vh;
 	position: relative;
+  padding-top: 80px;
 }
 
 /*Header styling*/
