@@ -32,15 +32,28 @@ html {
 	margin: 0 4%; /*Gutters*/
   height: 100%;
 }
+.top-container {
+  height: 70vh;
+  text-align: center;
+  margin-top: 25vh;
+}
 /*(2) Buttons*/
 .btn {
   display: block;
   background-color: rgba(255, 255, 255, 0.1);
-  /*height: 4vh;
-  line-height: 4vh;*/
   color: #fff;
   width: 90%;
   border-radius: 9px;
+}
+.blockquote-white {
+  margin-top: 4vh;
+  border-left: 6px #fff solid;
+  padding-left: 10px;
+}
+.blockquote-primary {
+  margin-top: 4vh;
+  border-left: 6px #397CC8 solid;
+  padding-left: 10px;
 }
 /*(3) Element Styling*/
 .shadow {
@@ -94,11 +107,32 @@ html {
 .col-12 {
   width: 100%;
 }
+/*Colouring text*/
+.white-text {
+  color: #fff;
+}
+.primary-text {
+  color: #397CC8;
+}
+.secondary-text {
+  color: #7296D6;
+}
+.success-text {
+  color: #1A9D49
+}
+.alert-and-contrast-text {
+  color: #FEB300;
+}
+.warning-text {
+  color: #9D1A1A;
+}
 
 /*Removing link styling*/
 a {
   text-decoration: none;
-  color: #000;
+}
+a:visited {
+  color: inherit;
 }
 
 /*Header, content and footer sizing and positioning*/
@@ -119,19 +153,17 @@ footer#footer-wrapper {
 /*Header styling*/
 div#header {
   width: 100%;
-  background-color: rgb(57, 124, 200);
+  background-color: #397CC8;
 }
 h1#title a {
   float: left;
   position: relative;
   line-height: 7vh;
-  color: #fff;
   font-size: 1.5rem;
   font-family: "SourceSansPro Light";
 }
 span#pagename {
   line-height: 7.5vh;
-  color: #fff;
   font-size: 1.3rem;
   font-family: "SourceSansPro Light";
 }
@@ -149,7 +181,6 @@ ul#header-links li {
 }
 ul#header-links li a {
   font-size: 1.3rem;
-  color: #fff;
 }
 ul#header-links li a.a-nav-hover:after {
   display:block;
@@ -164,7 +195,6 @@ ul#header-links li a.a-nav-hover:hover:after {
 
 /*Footer styling*/
 div#footer {
-  color: #fff;
   text-align: center;
   font-size: 1rem;
   line-height: 5vh;
@@ -177,16 +207,10 @@ div#footer {
 
 /*Index (Home) Styling*/
 div#tutorial {
-  color: #fff;
   margin-top: 12vh;
 }
 h2#index-header, h2#index-header-2 {
   text-align: center;
-}
-div#tutorial p {
-  margin-top: 4vh;
-  border-left: 6px #fff solid;
-  padding-left: 10px;
 }
 div#tutorial-pics, div#get-started-pics {
   margin: 6vh 0;
@@ -195,11 +219,5 @@ div#tutorial-pics, div#get-started-pics {
 div#tutorial-pics img, div#get-started-pics img {
   width: 100%;
 }
-div#get-started {
-  color: rgb(57, 124, 200);
-}
-div#get-started p {
-  margin-top: 4vh;
-  border-left: 6px rgb(57, 124, 200) solid;
-  padding-left: 10px;
-}
+
+/*Add Records Styling*/
