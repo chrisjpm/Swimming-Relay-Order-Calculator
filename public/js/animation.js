@@ -1,5 +1,5 @@
-$(document).ready(function() {
-  //Adding underline to active page in header and also removing its hover animation
+//Adding underline to active page in header and also removing its hover animation
+$(document).ready(function headerUnderline() {
   $(function() {
     switch (window.location.pathname) {
       case '/':
@@ -23,5 +23,44 @@ $(document).ready(function() {
         $('li#nav-results a').removeClass('a-nav-hover');
         break;
     }
+  });
+})
+
+//Changing image on hover for buttons
+$(document).ready(function imageOnHover() {
+  $(function() {
+    //Add records btn
+    $('img#addrecordsbtn').mouseover(function(){
+      $(this).attr("src", function(index, attr){
+        return attr.replace(".png", "-hover.png");
+      });
+    });
+    $('img#addrecordsbtn').mouseleave(function(){
+      $(this).attr("src", function(index, attr){
+        return attr.replace("-hover.png", ".png");
+      });
+    });
+    //View records button
+    $('img#viewrecordsbtn').mouseover(function(){
+      $(this).attr("src", function(index, attr){
+        return attr.replace(".png", "-hover.png");
+      });
+    });
+    $('img#viewrecordsbtn').mouseleave(function(){
+      $(this).attr("src", function(index, attr){
+        return attr.replace("-hover.png", ".png");
+      });
+    });
+    //Calculator btn
+    $('img#calcbtn').mouseover(function(){
+      $(this).attr("src", function(index, attr){
+        return attr.replace(".png", "-hover.png");
+      });
+    });
+    $('img#calcbtn').mouseleave(function(){
+      $(this).attr("src", function(index, attr){
+        return attr.replace("-hover.png", ".png");
+      });
+    });
   });
 })

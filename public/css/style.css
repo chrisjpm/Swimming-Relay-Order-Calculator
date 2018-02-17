@@ -26,7 +26,6 @@ html {
   background-size: 100%;
 }
 
-/*Universal Classes*/
 /*(1) Layout*/
 .left {
   float: left;
@@ -47,9 +46,9 @@ html {
   text-align: center;
 }
 .top-container img {
-  height: 8vh;
+  height: 6vh;
   display: block;
-  margin-top: 20vh;
+  margin-top: 18vh;
   margin-left: auto;
   margin-right: auto
 }
@@ -62,14 +61,17 @@ html {
   border-radius: 12px;
   padding: 10px;
   height: 5vh;
-  line-height: 5vh;
 }
 .btn-submit {
   background-color: #1A9D49;
 }
 .btn div div img {
-  height: 3vh;
-  margin-top: 1vh;
+  height: 2vh;
+  margin-top: 0.5vh;
+}
+.btn div div h3 {
+  font-family: "SourceSansPro Bold";
+  line-height: 3vh;
 }
 /*(3) Element Styling*/
 .shadow {
@@ -154,7 +156,7 @@ html {
 .centre {
   text-align: center;
 }
-/*(6) Removing link styling*/
+/*(6) Removing a and button styling*/
 a {
   text-decoration: none;
 }
@@ -164,16 +166,21 @@ a.white-text:visited {
 a.primary-text:visited {
   color: #397CC8;
 }
-/*(7) Form and table styling*/
+button[type='submit'] {
+  border: none;
+}
+/*(7) Form styling*/
 input {
   width: 100%;
 }
-/*(8) Media Queries */
-/*To have the GIF use a fade animation I needed a background colour on it. I am hiding it when the GIF leaves the blue background image and hits the white (it doesn't look nice)*/
-@media screen and (max-width: 1482px) {
-  .top-container img {
-    display: none !important;
-  }
+button[type='submit'] {
+  width: 100%;
+}
+button[type='submit']:hover {
+  cursor: pointer;
+}
+button[type='submit'] img {
+  height: 2vh;
 }
 /*(9) Notices */
 .alert-notice {

@@ -2,7 +2,7 @@
   <div class="white-text" id="addrecords-title">
     <h2>Add Records</h2>
     <p class="blockquote-white">Fill out the form below with one of your swimmer's personal details and a selection of their P.B.s. Once you click the green submit button at the bottom of the page the form will be cleared and you can enter a new swimmer's details. <strong>All fields are required.</strong></p>
-    <img src="../public/images/scrolldown3.gif">
+    <img src="../public/images/scrolldown3.gif" all="Scroll Down Animation">
   </div>
 </div>
 <div class="body-container">
@@ -10,7 +10,7 @@
     <!--Personal Details-->
     <div class="row">
       <div class="col-2">
-        <h3 class="primary-text left">Swimmer's Personal Details:</h3>
+        <h3 class="primary-text left">Swimmer's Details:</h3>
       </div>
       <div class="col-4">
         <input type="text" name="" placeholder="Test">
@@ -209,10 +209,10 @@
       <div class="col-12 shadow alert-notice">
         <div class="row">
           <div class="col-1 centre">
-            <img src="../public/images/info.png">
+            <img src="../public/images/info.png" alt="Info Icon">
           </div>
           <div class="col-11">
-            <span class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+            <span class="white-text">When entering the milliseconds, make sure that you enter a zero(0) at the end if it is a multiple of 10. E.g. 30.5s would be: EMPTY in the 'MM' box, 30 in the 'SS' box and 50 in the 'mm' box.</span>
           </div>
         </div>
       </div>
@@ -222,19 +222,15 @@
     <br  />
 
     <!--Submit Button-->
-    <div class="row centre">
-      <a class="col-12 btn btn-submit white-text shadow" href="#">
-        <div class="row">
-          <div class="col-4"></div>
-          <div class="col-2 centre">
-            <h3>SUMBIT</h3>
-          </div>
-          <div class="col-2 centre">
-            <img src="../public/images/submit.png">
-          </div>
-          <div class="col-4"></div>
-        </div>
-      </a>
-    </div>
+    <button type="submit" class="btn btn-submit shadow white-text">
+      <div class="row">
+        <div class="col-5"></div>
+        <div class="col-1"><h3>SUBMIT</h3></div>
+        <div class="col-1"><img src="../public/images/submit.png" alt="Submit Icon"></div>
+        <div class="col-5"></div>
+      </div>
+
+
+    </input>
   </form>
 </div>
