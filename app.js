@@ -13,7 +13,7 @@ var viewrecords = require('./routes/viewrecords');
 var calculator = require('./routes/calculator');
 
 var app = express();
-var port = 80;
+var port = (process.env.PORT || 80);
 var server = http.createServer(app);
 
 // view engine setup
