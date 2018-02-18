@@ -181,12 +181,15 @@ input:focus {
 select {
   border: none;
 }
+select:focus {
+  outline: none;
+}
 /*(7) Form styling*/
 input {
   border-bottom: 2px solid #397CC8; /*Override the removal of styling earlier*/
-  padding: 4px;
+  line-height: 1.5rem;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 0 5px;
   color: #7296D6;
   font-size: 0.8rem;
   transition: .3s ease-in;
@@ -209,18 +212,21 @@ input[type="date"] {
   width: 100%;
   font-family: "SourceSansPro Regular"; /*Type date applies its own font and color, need to override it*/
 }
+input[type="date"]:not(.has-value):before{
+  content: attr(placeholder);
+}
 input:valid:focus {
   border-bottom: 2px solid #1A9D49;
 }
 input:invalid:focus {
   border-bottom: 2px solid #9D1A1A;
 }
-select, option {
+select {
   width: 100%;
   border-bottom: 2px solid #397CC8 !important; /*Override the removal of styling earlier*/
-  padding: 4px;
+  padding-bottom: 4px;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 0 5px;
   color: #7296D6;
   font-size: 0.8rem;
   transition: .3s ease-in;
