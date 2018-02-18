@@ -156,7 +156,7 @@ html {
 .centre {
   text-align: center;
 }
-/*(6) Removing a and button styling*/
+/*(6) Removing a, select, input and button styling*/
 a {
   text-decoration: none;
 }
@@ -169,15 +169,70 @@ a.primary-text:visited {
 button[type='submit'] {
   border: none;
 }
+button[type='submit']:focus {
+  outline: none;
+}
+input {
+  border: none;
+}
+input:focus {
+  outline: none;
+}
+select {
+  border: none;
+}
 /*(7) Form styling*/
 input {
+  border-bottom: 2px solid #397CC8 !important; /*Override the removal of styling earlier*/
+  padding: 4px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #7296D6;
+  font-size: 0.8rem;
+  transition: border .3s ease-in;
+  transition: background .3s ease-in;
+}
+input:focus {
+  border-bottom: 2px solid #7296D6;
+  background-color: #7296D655;
+  color: #7296D6;
+}
+input::placeholder {
+  color: #7296D6;
+}
+input[type='text'] {
   width: 100%;
+}
+input[type='number'] {
+  width: 70%;
+  margin-left: 30%;
+}
+input[type="date"] {
+  width: 100%;
+  font-family: "SourceSansPro Regular"; /*Type date applies its own font and color, need to override it*/
+}
+select, option {
+  width: 100%;
+  border-bottom: 2px solid #397CC8 !important; /*Override the removal of styling earlier*/
+  padding: 4px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #7296D6;
+  font-size: 0.8rem;
+  transition: border .3s ease-in;
+  transition: background .3s ease-in;
+}
+select:focus {
+  border-bottom: 2px solid #7296D6;
+  background-color: #7296D655;
+  color: #7296D6;
 }
 button[type='submit'] {
   width: 100%;
 }
 button[type='submit']:hover {
   cursor: pointer;
+  background-color: #1A9D49EE;
 }
 button[type='submit'] img {
   height: 2vh;
