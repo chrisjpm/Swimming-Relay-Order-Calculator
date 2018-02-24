@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET calculator page. */
 router.get('/', function(req, res, next) {
   res.render('calculator', { domain: 'SROC - ', title: 'Calculator', layout: 'layout.hbs' });
 });

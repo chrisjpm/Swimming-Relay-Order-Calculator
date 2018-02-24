@@ -6,14 +6,14 @@
   </div>
 </div>
 <div class="body-container">
-  <form class="" action="" method="post">
+  <form class="addSwimmer" action="" method="post"><!--After submit will stay on same page and clear the form so the user can enter a new swimmer-->
     <!--Personal Details-->
     <div class="row">
       <div class="col-2">
         <h3 class="primary-text left">Swimmer's Details:</h3>
       </div>
       <div class="col-4">
-        <input type="text" name="firstname" placeholder="First Name(s) (Between 0 and 40 Characters)" maxlength="40" required>
+        <input type="text" name="swimmer_forename" placeholder="First Name(s) (Between 0 and 40 Characters)" maxlength="40" required>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
         <h3 class="white-text left">.</h3> <!-- White text to hide text but keep consistant height -->
       </div>
       <div class="col-4">
-        <input type="text" name="lastname" placeholder="Last Name (Between 0 and 40 Characters)" maxlength="40" required>
+        <input type="text" name="swimmer_surname" placeholder="Last Name (Between 0 and 40 Characters)" maxlength="40" required>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
         <h3 class="white-text left">.</h3> <!-- White text to hide text but keep consistant height -->
       </div>
       <div class="col-4">
-        <input type="date" name="dob"  placeholder="Date of Birth, in format: &nbsp;&nbsp;" onchange="this.className=(this.value!=''?'has-value':'')" required>
+        <input type="date" name="swimmer_dob"  placeholder="Date of Birth, in format: &nbsp;&nbsp;" onchange="this.className=(this.value!=''?'has-value':'')" required>
       </div>
     </div>
 
@@ -40,10 +40,10 @@
         <h3 class="white-text left">.</h3> <!-- White text to hide text but keep consistant height -->
       </div>
       <div class="col-4">
-        <select required name="dob">
+        <select required name="swimmer_gender">
           <option value="" disabled selected>Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="0">Male</option>
+          <option value="1">Female</option>
         </select>
       </div>
     </div>
@@ -384,7 +384,7 @@
     <br  />
 
     <!--Submit Button-->
-    <button type="submit" class="btn btn-submit shadow white-text">
+    <button type="submit" class="btn btn-submit shadow white-text" id="swimmer-submit">
       <div class="row">
         <div class="col-5"></div>
         <div class="col-1"><h3>SUBMIT</h3></div>
