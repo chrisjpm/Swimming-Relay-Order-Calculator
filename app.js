@@ -57,22 +57,12 @@ app.use('/addrecords', addrecords);
 app.use('/viewrecords', viewrecords);
 app.use('/calculator', calculator);
 
-// Post swimmer from html form to swimmer and distance_pb tables
+// Post swimmer from html form to swimmer and distance_pb tables with either success alert or error message
 app.post('/addrecords', function (req, res) {
     con.query('INSERT INTO sroc.swimmer SET ?', req.body,
-        function (err, result) {
-            if (err) throw err;
-            res.send('Swimmer\'s details added to database with ID: ' + result.insertId);
-            alert('Swimmer\'s details added to database!');
-        }
-    );
-    // connection.query('INSERT INTO distance_pb SET ?', req.body,
-    //     function (err, result) {
-    //         if (err) throw err;
-    //         res.send('Swimmer\'s P.B.s added to database with ID: ' + result.insertId);
-    //         alert('Swimmer\'s P.B.s added to database!');
-    //     }
-    // );
+      function (err, result) {
+        console.log('Swimmer\'s details added to database with ID: ' + result.insertId);
+    });
 });
 
 // catch 404 and forward to error handler
@@ -104,6 +94,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// start app
+// start app on var port
 server.listen(port);
 module.exports = app;
