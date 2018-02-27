@@ -61,7 +61,9 @@ app.use('/calculator', calculator);
 app.post('/addrecords', function (req, res) {
     con.query('INSERT INTO sroc.swimmer SET ?', req.body,
       function (err, result) {
+        if(err) throw err;
         console.log('Swimmer\'s details added to database with ID: ' + result.insertId);
+        res.send("true");
     });
 });
 
