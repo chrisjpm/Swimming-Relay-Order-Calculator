@@ -69,7 +69,7 @@ app.post('/addrecords', function (req, res) {
 
 // Request swimmers details for insterting into HTML table on the view records page
 app.post('/viewrecords', function (req, res) {
-    con.query('SELECT swimmer_forname, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer',
+    con.query('SELECT swimmer_forename, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer',
       function (err, result) {
         if(err) throw err;
         console.log('Swimmer\'s details inserted into table');
@@ -79,9 +79,9 @@ app.post('/viewrecords', function (req, res) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // development error handler

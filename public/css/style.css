@@ -156,7 +156,7 @@ html {
 .centre {
   text-align: center;
 }
-/*(6) Removing a, select, input and button styling*/
+/*(6) Removing styling*/
 a {
   text-decoration: none;
 }
@@ -183,6 +183,9 @@ select {
 }
 select:focus {
   outline: none;
+}
+td, th {
+  border: 0 solid transparent;
 }
 /*(7) Form styling*/
 input {
@@ -261,6 +264,31 @@ button[type='submit'] img {
 }
 .alert-notice div div img {
   height: 5vh;
+}
+/*(10) Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th {
+  background: #397CC8;
+  font-weight: bold;
+  height: 60px;
+  color: #fff;
+}
+td {
+  text-align: center;
+  height: 40px;
+  color: rgb(110, 112, 124);
+}
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td {
+  background: #fff;
+}
+/* Cells in odd rows (1,3,5...) are another (excludes header)  */
+tr:nth-child(odd) td {
+  background: #7296D62E;
 }
 
 /*Header, content and footer sizing and positioning*/
