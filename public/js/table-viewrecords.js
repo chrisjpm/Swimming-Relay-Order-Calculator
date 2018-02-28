@@ -57,6 +57,6 @@ function assignGender(g){
   else if (g == 1) {
     gender = "Female";
   }
-
+  // does not support non-binary genders as there are only 2 genders (m/f) in swimming competitions
   return gender;
 }
