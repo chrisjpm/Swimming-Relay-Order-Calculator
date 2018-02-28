@@ -59,11 +59,21 @@ app.use('/calculator', calculator);
 
 // Post swimmer from html form to swimmer and distance_pb tables with either success alert or error message
 app.post('/addrecords', function (req, res) {
-    con.query('INSERT INTO sroc.swimmer SET ?', req.body,
+    con.query('INSERT INTO sroc.swimmer SET ?', req.body.swimmer,
       function (err, result) {
         if(err) throw err;
         console.log('Swimmer\'s details added to database with ID: ' + result.insertId);
-        res.send("true");
+        res.send(result);
+    });
+});
+
+// Request swimmers details for insterting into HTML table on the view records page
+app.post('/viewrecords', function (req, res) {
+    con.query('SELECT swimmer_forname, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer',
+      function (err, result) {
+        if(err) throw err;
+        console.log('Swimmer\'s details inserted into table');
+        res.send(result);
     });
 });
 

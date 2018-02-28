@@ -14,7 +14,7 @@ function removeEnterSubmit() {
   });
 }
 
-// Tell what values to enter into db fields
+// Values to be entered into db fields
 function addSwimmer() {
   $('#swimmer-submit').on('click', function(e) {
     e.preventDefault();
@@ -24,16 +24,15 @@ function addSwimmer() {
         swimmer_surname: $('input[name="swimmer_surname"]').val(),
         swimmer_dob: $('input[name="swimmer_dob"]').val(),
         swimmer_gender: $('select[name="swimmer_gender"]').val(),
-      },
-      distance_pb : {
-        
       }
+      // distance_pb : {
+      //
+      // }
     };
     $.ajax({
       url: "/addrecords",
       type: "POST",
       contentType: "application/json",
-      // processData: false,
       data: JSON.stringify(values),
       success: function(response) {
         if (response) {
@@ -44,6 +43,7 @@ function addSwimmer() {
     });
   });
 
+  // First attempt
   // $('#swimmer-submit').submit(function(e) {
   //   e.preventDefault();
   //   var values = {
@@ -75,6 +75,7 @@ function addSwimmer() {
   // });
 }
 
+// Convert the times for each distance of each stroke into milliseconds
 // fly = Butterfly; bc = Backcrawl; brs = Breastroke; fc = Frontcrawl
 function getMillisTime(stroke, distance) {
   var mins = $('input[name="' + stroke + distance + 'mins"]').val();
