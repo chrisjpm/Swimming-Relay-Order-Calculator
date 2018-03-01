@@ -65,7 +65,7 @@ function addSwimmer() {
         success: function(response) {
           if (response) {
             console.log('Alerting success and clearing form');
-            alert("Success! Your swimmer and his/her times have been added to our databse, check the View Records Page if they are there. Most recent entries will be at the bottom.");
+            alert("Success! Your swimmer and his/her times have been added to our databse, check the View Records Page if they are there. Most recent entries will be at the top.");
             $('form.addSwimmer')[0].reset(); // Clear form
           }
         }

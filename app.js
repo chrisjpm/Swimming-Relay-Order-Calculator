@@ -73,6 +73,8 @@ app.post('/addrecords', function (req, res) {
 });
 
 function insertDistancePBs(swimmerId, distance_data, callback){
+  // Because it will query asynchronously, we don't know which query will fisnihs last (meaning we can put the call back on the last query with 100% guarantee it is last to finish)
+  // var done_query increments when a query is successful and in each query, if it equals 4 (4 queries) it will reurrn callback
   var done_queries = 0;
   // fly
   con.query('INSERT INTO sroc.distance_pb SET stroke_id=1, swimmer_id='+swimmerId+', ?', distance_data.fly,
@@ -122,7 +124,7 @@ function insertDistancePBs(swimmerId, distance_data, callback){
 
 // Request swimmers details for insterting into HTML table on the view records page
 app.post('/viewrecords', function (req, res) {
-    con.query('SELECT swimmer_forename, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer',
+    con.query('SELECT swimmer_forename, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer ORDER BY swimmer_id DESC',
       function (err, result) {
         if(err) throw err;
         console.log('Swimmer\'s details inserted into table');
