@@ -63,9 +63,62 @@ app.post('/addrecords', function (req, res) {
       function (err, result) {
         if(err) throw err;
         console.log('Swimmer\'s details added to database with ID: ' + result.insertId);
-        res.send(result);
-    });
+
+        // Insert times with the new swimmer id and stroke id asscociated
+        insertDistancePBs(result.insertId, req.body.distance_pb, function(){
+          res.send(true);
+        });
+      }
+    );
 });
+
+function insertDistancePBs(swimmerId, distance_data, callback){
+  var done_queries = 0;
+  // fly
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=1, swimmer_id='+swimmerId+', ?', distance_data.fly,
+    function (err, result2) {
+      if(err) throw err;
+      done_queries++;
+      console.log('Fly times added to database for swimmer with ID: ' + swimmerId);
+      if(done_queries == 4){
+        return callback();
+      }
+    }
+  );
+  // bc
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=2, swimmer_id='+swimmerId+', ?', distance_data.bc,
+    function (err, result2) {
+      if(err) throw err;
+      done_queries++;
+      console.log('Bc times added to database for swimmer with ID: ' + swimmerId);
+      if(done_queries == 4){
+        return callback();
+      }
+    }
+  );
+  // brs
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=3, swimmer_id='+swimmerId+', ?', distance_data.brs,
+    function (err, result2) {
+      if(err) throw err;
+      done_queries++;
+      console.log('Brs times added to database for swimmer with ID: ' + swimmerId);
+      if(done_queries == 4){
+        return callback();
+      }
+    }
+  );
+  // fc
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=4, swimmer_id='+swimmerId+', ?', distance_data.fc,
+    function (err, result2) {
+      if(err) throw err;
+      done_queries++;
+      console.log('Fc times added to database for swimmer with ID: ' + swimmerId);
+      if(done_queries == 4){
+        return callback();
+      }
+    }
+  );
+}
 
 // Request swimmers details for insterting into HTML table on the view records page
 app.post('/viewrecords', function (req, res) {
