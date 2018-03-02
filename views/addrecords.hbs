@@ -6,7 +6,8 @@
   </div>
 </div>
 <div class="body-container">
-  <form class="addSwimmer" method="post"><!--After submit will stay on same page and clear the form so the user can enter a new swimmer-->
+  <!-- HTML form for use to add a swimmer to the database. It will ask for their personal details and all their Personal Best tines. -->
+  <form class="addSwimmer" method="post"><!--After submit will stay on same page and clear the form so the user can enter a new swimmer | action="..." is not required in HTML5-->
     <!--Personal Details-->
     <div class="row">
       <div class="col-2">
@@ -74,13 +75,13 @@
         <h3 class="primary-text">25m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fly25mins" placeholder="MM" min="0" max="59" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly25mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly25secs" placeholder="SS" min="0" max="59" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly25secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly25millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fly25millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -90,13 +91,13 @@
         <h3 class="primary-text">25m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="bc25mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc25mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc25secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc25secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc25millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="bc25millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -109,13 +110,13 @@
         <h3 class="primary-text">50m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fly50mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly50mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly50secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly50secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly50millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fly50millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -125,13 +126,13 @@
         <h3 class="primary-text">50m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="bc50mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc50mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc50secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc50secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc50millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="bc50millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -144,13 +145,13 @@
         <h3 class="primary-text">100m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fly100mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly100mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly100secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly100secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly100millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fly100millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -160,13 +161,13 @@
         <h3 class="primary-text">100m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="bc100mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc100mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc100secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc100secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc100millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="bc100millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -179,13 +180,13 @@
         <h3 class="primary-text">200m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fly200mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly200mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly200secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fly200secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fly200millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fly200millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -195,13 +196,13 @@
         <h3 class="primary-text">200m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="bc200mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc200mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc200secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="bc200secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="bc200millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="bc200millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -230,13 +231,13 @@
         <h3 class="primary-text">25m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="brs25mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs25mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs25secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs25secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs25millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="brs25millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -246,13 +247,13 @@
         <h3 class="primary-text">25m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fc25mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc25mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc25secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc25secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc25millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fc25millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -265,13 +266,13 @@
         <h3 class="primary-text">50m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="brs50mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs50mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs50secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs50secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs50millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="brs50millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -281,13 +282,13 @@
         <h3 class="primary-text">50m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fc50mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc50mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc50secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc50secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc50millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fc50millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -300,13 +301,13 @@
         <h3 class="primary-text">100m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="brs100mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs100mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs100secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs100secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs100millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="brs100millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -316,13 +317,13 @@
         <h3 class="primary-text">100m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fc100mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc100mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc100secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc100secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc100millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fc100millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 
@@ -335,13 +336,13 @@
         <h3 class="primary-text">200m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="brs200mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs200mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs200secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="brs200secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="brs200millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="brs200millis" placeholder="mm" min="0" max="99">
       </div>
 
       <div class="col-1">
@@ -351,13 +352,13 @@
         <h3 class="primary-text">200m</h3>
       </div>
       <div class="col-1">
-        <input type="number" required id="fc200mins" placeholder="MM" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc200mins" placeholder="MM" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc200secs" placeholder="SS" min="0" max="59">
+        <input type="number" class="enter-time" required id="fc200secs" placeholder="SS" min="0" max="59">
       </div>
       <div class="col-1">
-        <input type="number" required id="fc200millis" placeholder="mm" min="0" max="99">
+        <input type="number" class="enter-time" required id="fc200millis" placeholder="mm" min="0" max="99">
       </div>
     </div>
 

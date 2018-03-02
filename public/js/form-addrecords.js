@@ -52,7 +52,6 @@ function addSwimmer() {
         }
       }
     };
-    console.log("Bazinga:" +  values);
 
     if (!(document.getElementsByClassName("addSwimmer")[0].checkValidity())) {
       document.getElementById("swimmer-submit-hidden").click();

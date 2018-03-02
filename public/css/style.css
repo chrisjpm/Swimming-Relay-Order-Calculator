@@ -207,9 +207,12 @@ input::placeholder {
 input[type='text'] {
   width: 100%;
 }
-input[type='number'] {
+input[type='number'].enter-time {
   width: 70%;
   margin-left: 30%;
+}
+input[type='number'].enter-year {
+  width: 100%;
 }
 input[type="date"] {
   width: 100%;

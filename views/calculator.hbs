@@ -1,1 +1,72 @@
-<h1>calculator</h1>
+<div class="top-container">
+  <div class="white-text" id="addrecords-title">
+    <h2>Calculator</h2>
+    <p class="blockquote-white">Fill out the form below with all the details of the relay then hit the submit button. <strong>All fields are required.</strong></p>
+    <img src="../public/images/scrolldown3.gif" all="Scroll Down Animation">
+  </div>
+</div>
+<div class="body-container">
+  <!-- The user will enter all the relay requirements: age, gender, relay type and the distance. -->
+  <form class="calculator primary-text" method="post"><!--After submit will redirect to the result page with download option | action="..." is not required in HTML5-->
+    <!-- Inputs -->
+    <div class="row ">
+      <div class="col-5">
+        <h3>STEP 1</h3>
+        <p class="blockquote-primary">Select swimmers by age and gender:</p>
+        <br />
+        <input type="number" class="enter-year" required name="swimmer_dob" placeholder="Year of birth, in format: YYYY" pattern={4}> <!-- year must only be 4 characters(integers) long-->
+        <br />
+        <br />
+        <select required name="swimmer_gender">
+          <option value="" disabled selected>Gender</option>
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+        </select>
+      </div>
+      <div class="col-2"></div> <!-- White space -->
+      <div class="col-5">
+        <h3>STEP 2</h3>
+        <p class="blockquote-primary">Select relay details:</p>
+        <br />
+        <select required id="relay-type">
+          <option value="" disabled selected>Relay Type</option>
+          <option value="0">Freestyle (Frontcrawl)</option>
+          <option value="1">Medlay</option>
+        </select>
+        <br />
+        <br />
+        <select required id="relay-distance">
+          <option value="" disabled selected>Distance</option>
+          <option value="25">4x25m</option>
+          <option value="50">4x50m</option>
+          <option value="100">4x100m</option>
+          <option value="200">4x200m</option>
+        </select>
+      </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- Submit -->
+    <div class="row">
+      <div class="col-12">
+        <h3>STEP 3</h3>
+        <p class="blockquote-primary">Calculate:</p>
+        <br />
+        <button type="submit" class="btn btn-submit shadow white-text" id="calc-submit-hidden" style="display:none;">
+        <button type="submit" class="btn btn-submit shadow white-text" id="calc-submit">
+          <div class="row">
+            <div class="col-5"></div>
+            <div class="col-1"><h3>SUBMIT</h3></div>
+            <div class="col-1"><img src="../public/images/submit.png" alt="Submit Icon"></div>
+            <div class="col-5"></div>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Post to database -->
+<script type="text/javascript" src="../public/js/form-calculator.js"></script>

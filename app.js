@@ -13,6 +13,7 @@ var index = require('./routes/index');
 var addrecords = require('./routes/addrecords');
 var viewrecords = require('./routes/viewrecords');
 var calculator = require('./routes/calculator');
+var result = require('./routes/result');
 
 // create connection to Google Cloud sql database
 var con = mysql.createConnection({
@@ -56,6 +57,7 @@ app.use('/', index);
 app.use('/addrecords', addrecords);
 app.use('/viewrecords', viewrecords);
 app.use('/calculator', calculator);
+app.use('/result', result);
 
 // Post swimmer from html form to swimmer and distance_pb tables with either success alert or error message
 app.post('/addrecords', function (req, res) {
