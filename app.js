@@ -79,7 +79,7 @@ function insertDistancePBs(swimmerId, distance_data, callback){
   // var done_query increments when a query is successful and in each query, if it equals 4 (4 queries) it will reurrn callback
   var done_queries = 0;
   // fly
-  con.query('INSERT INTO sroc.distance_pb SET stroke_id=1, swimmer_id='+swimmerId+', ?', distance_data.fly,
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=1, swimmer_id=' + swimmerId + ', ?', distance_data.fly,
     function (err, result2) {
       if(err) throw err;
       done_queries++;
@@ -90,7 +90,7 @@ function insertDistancePBs(swimmerId, distance_data, callback){
     }
   );
   // bc
-  con.query('INSERT INTO sroc.distance_pb SET stroke_id=2, swimmer_id='+swimmerId+', ?', distance_data.bc,
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=2, swimmer_id=' + swimmerId + ', ?', distance_data.bc,
     function (err, result2) {
       if(err) throw err;
       done_queries++;
@@ -101,7 +101,7 @@ function insertDistancePBs(swimmerId, distance_data, callback){
     }
   );
   // brs
-  con.query('INSERT INTO sroc.distance_pb SET stroke_id=3, swimmer_id='+swimmerId+', ?', distance_data.brs,
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=3, swimmer_id=' + swimmerId + ', ?', distance_data.brs,
     function (err, result2) {
       if(err) throw err;
       done_queries++;
@@ -112,7 +112,7 @@ function insertDistancePBs(swimmerId, distance_data, callback){
     }
   );
   // fc
-  con.query('INSERT INTO sroc.distance_pb SET stroke_id=4, swimmer_id='+swimmerId+', ?', distance_data.fc,
+  con.query('INSERT INTO sroc.distance_pb SET stroke_id=4, swimmer_id=' + swimmerId + ', ?', distance_data.fc,
     function (err, result2) {
       if(err) throw err;
       done_queries++;
@@ -130,6 +130,24 @@ app.post('/viewrecords', function (req, res) {
       function (err, result) {
         if(err) throw err;
         console.log('Swimmer\'s details inserted into table');
+        res.send(result);
+    });
+});
+
+// Select swimmers and the applicable times for the calculation
+app.post('/calculator', function (req, res, yob, gender, distancePb, relayType) {
+    // Swimmer details
+    con.query('SELECT swimmer_forename, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer WHERE year(swimmer_dob)=' + yob + ' AND swimmer_gender=' + gender,
+      function (err, result) {
+        if(err) throw err;
+        console.log('Selected swimmer by age and gender');
+        res.send(result);
+    });
+    // Time(s) required for relay
+    con.query('SELECT ' + distancePb + ' FROM sroc.distance_pb WHERE stroke_id IN (' + relayType +')',
+      function (err, result) {
+        if(err) throw err;
+        console.log('Selected time(s) for relay');
         res.send(result);
     });
 });

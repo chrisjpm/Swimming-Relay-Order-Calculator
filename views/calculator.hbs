@@ -14,7 +14,7 @@
         <h3>STEP 1</h3>
         <p class="blockquote-primary">Select swimmers by age and gender:</p>
         <br />
-        <input type="number" class="enter-year" required name="swimmer_dob" placeholder="Year of birth, in format: YYYY" pattern={4}> <!-- year must only be 4 characters(integers) long-->
+        <input type="number" class="enter-year" name="swimmer_dob" placeholder="Year of birth, in format: YYYY" required max="9999"> <!-- year must only be 4 characters(integers) long-->
         <br />
         <br />
         <select required name="swimmer_gender">
@@ -30,17 +30,17 @@
         <br />
         <select required id="relay-type">
           <option value="" disabled selected>Relay Type</option>
-          <option value="0">Freestyle (Frontcrawl)</option>
-          <option value="1">Medlay</option>
+          <option value="4">Freestyle (Frontcrawl)</option>
+          <option value="1, 2, 3, 4">Medley</option>
         </select>
         <br />
         <br />
         <select required id="relay-distance">
           <option value="" disabled selected>Distance</option>
-          <option value="25">4x25m</option>
-          <option value="50">4x50m</option>
-          <option value="100">4x100m</option>
-          <option value="200">4x200m</option>
+          <option value="pb_25m">4x25m</option>
+          <option value="pb_50m">4x50m</option>
+          <option value="pb_100m">4x100m</option>
+          <option value="pb_200m">4x200m</option>
         </select>
       </div>
     </div>
