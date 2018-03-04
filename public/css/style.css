@@ -275,7 +275,6 @@ table {
   border-spacing: 0;
 }
 th {
-  background: #397CC8;
   font-weight: bold;
   height: 60px;
   color: #fff;
@@ -365,12 +364,9 @@ div#footer {
   font-family: "SourceSansPro Light";
 }
 
-/*Index (Home) Styling*/
+/* Index (Home) Styling */
 div#tutorial {
   margin-top: 12vh;
-}
-h2#index-header, h2#index-header-2 {
-  text-align: center;
 }
 div#tutorial-pics, div#get-started-pics {
   margin: 6vh 0;
@@ -380,4 +376,12 @@ div#tutorial-pics img, div#get-started-pics img {
   width: 100%;
 }
 
-/*Add Records Styling*/
+/* View Records Styling */
+table#swimmers-table tr th {
+  background-color: #397CC8;
+}
+
+/* Calculator Styling */
+table#calc-swimmers-table tr th {
+  background-color: #7296D6;
+}

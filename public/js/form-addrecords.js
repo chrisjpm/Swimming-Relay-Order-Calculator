@@ -19,13 +19,13 @@ function addSwimmer() {
   $('#swimmer-submit').on('click', function(e) {
     e.preventDefault();
     var values = {
-      swimmer: {
-        swimmer_forename: $('input[name="swimmer_forename"]').val(),
-        swimmer_surname: $('input[name="swimmer_surname"]').val(),
-        swimmer_dob: $('input[name="swimmer_dob"]').val(),
-        swimmer_gender: $('select[name="swimmer_gender"]').val(),
+      swimmer : {
+        swimmer_forename : $('input[name="swimmer_forename"]').val(),
+        swimmer_surname : $('input[name="swimmer_surname"]').val(),
+        swimmer_dob : $('input[name="swimmer_dob"]').val(),
+        swimmer_gender : $('select[name="swimmer_gender"]').val(),
       },
-      distance_pb: {
+      distance_pb : {
         fly : {
           pb_25m : getMillisTime("fly", 25),
           pb_50m : getMillisTime("fly", 50),
@@ -57,11 +57,11 @@ function addSwimmer() {
       document.getElementById("swimmer-submit-hidden").click();
     } else {
       $.ajax({
-        url: "/addrecords",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(values),
-        success: function(response) {
+        url : "/addrecords",
+        type : "POST",
+        contentType : "application/json",
+        data : JSON.stringify(values),
+        success : function(response) {
           if (response) {
             console.log('Alerting success and clearing form');
             alert("Success! Your swimmer and his/her times have been added to our databse, check the View Records Page if they are there. Most recent entries will be at the top.");

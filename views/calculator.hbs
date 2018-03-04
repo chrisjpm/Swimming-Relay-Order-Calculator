@@ -14,10 +14,10 @@
         <h3>STEP 1</h3>
         <p class="blockquote-primary">Select swimmers by age and gender:</p>
         <br />
-        <input type="number" class="enter-year" name="swimmer_dob" placeholder="Year of birth, in format: YYYY" required max="9999"> <!-- year must only be 4 characters(integers) long-->
+        <input type="number" class="enter-year" name="calc-yob" placeholder="Year of birth, in format: YYYY" required min="0" max="9999"> <!-- year must only be 4 characters(integers) long and not negative-->
         <br />
         <br />
-        <select required name="swimmer_gender">
+        <select required name="calc-gender">
           <option value="" disabled selected>Gender</option>
           <option value="0">Male</option>
           <option value="1">Female</option>
@@ -28,14 +28,14 @@
         <h3>STEP 2</h3>
         <p class="blockquote-primary">Select relay details:</p>
         <br />
-        <select required id="relay-type">
+        <select required name="calc-relay-type">
           <option value="" disabled selected>Relay Type</option>
           <option value="4">Freestyle (Frontcrawl)</option>
           <option value="1, 2, 3, 4">Medley</option>
         </select>
         <br />
         <br />
-        <select required id="relay-distance">
+        <select required name="calc-relay-distance">
           <option value="" disabled selected>Distance</option>
           <option value="pb_25m">4x25m</option>
           <option value="pb_50m">4x50m</option>
@@ -66,7 +66,26 @@
       </div>
     </div>
   </form>
+
+  <br />
+  <br />
+  <br />
+
+  <h3 class="centre primary-text">Here's who will be in the calculation and their P.B. The next table will have the results.</h3>
+
+  <br />
+
+  <table id="calc-swimmers-table" class="shadow">
+    <tr>
+      <th>First Name</th>
+      <th>Second Name</th>
+      <th>Date of Birth</th>
+      <th>Gender</th>
+      <th>Stroke</th>
+      <th>P.B. (for selected difference)</th>
+    </tr>
+  </table>
 </div>
 
-<!-- Post to database -->
+<!-- Find swimmers for relay and the times -->
 <script type="text/javascript" src="../public/js/form-calculator.js"></script>

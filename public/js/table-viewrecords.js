@@ -7,15 +7,15 @@ $(document).ready(function() {
 // Tell what values to enter into db fields
 function requestSwimmers(data) {
   $.ajax({
-    url: "/viewrecords",
-    type: "POST",
-    contentType: "application/json",
-    data: [],
-    success: function(swimmersJson) {
+    url : "/viewrecords",
+    type : "POST",
+    contentType : "application/json",
+    data : [],
+    success : function(swimmersJson) {
       renderTable(swimmersJson);
     }
   });
-};
+}
 
 // Render the table with swimmers details from sroc.swimmer
 function renderTable(swimmersJson) {
@@ -43,7 +43,7 @@ function beautifyDate(d){
   var date = new Date(d);
   var year = date.getFullYear();
   var month = date.getMonth();
-  var day = date.getDay();
+  var day = date.getDate();
 
   return day+"/"+month+"/"+year;
 }

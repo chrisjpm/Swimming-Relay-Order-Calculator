@@ -13,7 +13,6 @@ var index = require('./routes/index');
 var addrecords = require('./routes/addrecords');
 var viewrecords = require('./routes/viewrecords');
 var calculator = require('./routes/calculator');
-var result = require('./routes/result');
 
 // create connection to Google Cloud sql database
 var con = mysql.createConnection({
@@ -57,7 +56,6 @@ app.use('/', index);
 app.use('/addrecords', addrecords);
 app.use('/viewrecords', viewrecords);
 app.use('/calculator', calculator);
-app.use('/result', result);
 
 // Post swimmer from html form to swimmer and distance_pb tables with either success alert or error message
 app.post('/addrecords', function (req, res) {
@@ -75,7 +73,7 @@ app.post('/addrecords', function (req, res) {
 });
 
 function insertDistancePBs(swimmerId, distance_data, callback){
-  // Because it will query asynchronously, we don't know which query will fisnihs last (meaning we can put the call back on the last query with 100% guarantee it is last to finish)
+  // Because it will query asynchronously, we don't know which query will finish last (meaning we can't put the call back on the last query with 100% guarantee it is last to finish)
   // var done_query increments when a query is successful and in each query, if it equals 4 (4 queries) it will reurrn callback
   var done_queries = 0;
   // fly
@@ -135,22 +133,31 @@ app.post('/viewrecords', function (req, res) {
 });
 
 // Select swimmers and the applicable times for the calculation
-app.post('/calculator', function (req, res, yob, gender, distancePb, relayType) {
-    // Swimmer details
-    con.query('SELECT swimmer_forename, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer WHERE year(swimmer_dob)=' + yob + ' AND swimmer_gender=' + gender,
-      function (err, result) {
-        if(err) throw err;
-        console.log('Selected swimmer by age and gender');
-        res.send(result);
-    });
-    // Time(s) required for relay
-    con.query('SELECT ' + distancePb + ' FROM sroc.distance_pb WHERE stroke_id IN (' + relayType +')',
-      function (err, result) {
-        if(err) throw err;
-        console.log('Selected time(s) for relay');
-        res.send(result);
+app.post('/calculator', function (req, res) {
+    // Set vars to inputs in html form
+    yob = req.body.swimmerDetails.swimmer_dob;
+    gender = req.body.swimmerDetails.swimmer_gender;
+    relayType = req.body.relayDetails.relay_type;
+    distancePb = req.body.relayDetails.relay_distance;
+
+    // Insert times with the new swimmer id and stroke id asscociated
+    getSwimmers(yob, gender, relayType, distancePb, function(data){
+      res.send(data);
     });
 });
+
+function getSwimmers(yob, gender, relayType, distancePb, callback){
+  // Because it will query asynchronously, we don't know which query will finish last (meaning we can't put the call back on the last query with 100% guarantee it is last to finish)
+  // var done_query increments when a query is successful and in each query, if it equals 2 (2 queries) it will reurrn callback
+  // Swimmer details and time(s) required for relay
+  var query = 'SELECT sroc.swimmer.swimmer_forename, sroc.swimmer.swimmer_surname, sroc.swimmer.swimmer_dob, sroc.swimmer.swimmer_gender, sroc.distance_pb.' + distancePb + ', sroc.stroke.stroke_name FROM sroc.swimmer INNER JOIN sroc.distance_pb ON sroc.swimmer.swimmer_id=sroc.distance_pb.swimmer_id INNER JOIN sroc.stroke ON sroc.distance_pb.stroke_id=sroc.stroke.stroke_id WHERE year(sroc.swimmer.swimmer_dob)=' + yob + ' AND sroc.swimmer.swimmer_gender=' + gender + ' AND sroc.distance_pb.stroke_id IN (' + relayType + ')';
+  con.query(query,
+    function (err, result2) {
+      if(err) throw err;
+      console.log('Selected swimmer by age and gender and the applicable times');
+      return callback(result2);
+  });
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
