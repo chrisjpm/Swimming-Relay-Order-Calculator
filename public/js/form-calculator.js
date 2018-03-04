@@ -38,7 +38,14 @@ function getSwimmerDetails() {
         contentType : "application/json",
         data : JSON.stringify(values),
         success : function(swimmersJson) {
-          renderTable(swimmersJson);
+          if (isValidRelay(swimmersJson)) {
+            renderTableSwimmers(swimmersJson);
+            //calculation function
+          } else {
+            window.alert('Sorry! Not enough swimmers match the criteria for this relay.');
+          }
+          console.log(isValidRelay(swimmersJson) + "dkgjl");
+          //renderTableSwimmers(swimmersJson);
         }
       });
     }
@@ -46,16 +53,12 @@ function getSwimmerDetails() {
 }
 
 // Render the table with swimmers details from sroc.swimmer and the times needed for the relay from sroc.distance_pb
-function renderTable(swimmersJson) {
+function renderTableSwimmers(swimmersJson) {
   // First clear table if there was a past calculation in the same session
   $('td').remove();
 
-  //Alert message if there are no swimmers that match the criteria
-  if (swimmersJson == '') {
-    window.alert('Sorry! No swimmers match the criteria for this relay.');
-  }
-
-  distancePb = $('select[name="calc-relay-distance"]').val();
+  // Show applicable swimmers in first table
+  var distancePb = $('select[name="calc-relay-distance"]').val();
   var columns = ["swimmer_forename", "swimmer_surname", "swimmer_dob", "swimmer_gender", "stroke_name", distancePb];
 
   for (var i = 0; i < swimmersJson.length; i++) {
@@ -75,10 +78,28 @@ function renderTable(swimmersJson) {
   }
 }
 
+function isValidRelay(swimmersJson) {
+  //Alert message if there are not enough swimmers that match the criteria and don't carry through with the calculation
+  var relayType = $('select[name="calc-relay-type"]').val();
+  if (relayType == '4') {
+    if (swimmersJson.length < 4) { //there must be at least 4 people to make a relay team
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    if (swimmersJson.length < 16) { // The Json is 4x the size becuase it gets all 4 strokes. This still finds if there are less than 4 swimmers
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
+
 function beautifyDate(d){
   var date = new Date(d);
   var year = date.getFullYear();
-  var month = date.getMonth();
+  var month = date.getMonth() + 1; // need to add 1 to get the correct month
   var day = date.getDate();
 
   return day+"/"+month+"/"+year;

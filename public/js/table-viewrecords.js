@@ -20,7 +20,6 @@ function requestSwimmers(data) {
 // Render the table with swimmers details from sroc.swimmer
 function renderTable(swimmersJson) {
   var columns = ["swimmer_forename", "swimmer_surname", "swimmer_dob", "swimmer_gender"];
-  console.log(swimmersJson);
 
   for (var i = 0; i < swimmersJson.length; i++) {
     var row$ = $('<tr/>');
@@ -42,7 +41,7 @@ function renderTable(swimmersJson) {
 function beautifyDate(d){
   var date = new Date(d);
   var year = date.getFullYear();
-  var month = date.getMonth();
+  var month = date.getMonth() + 1; // need to add 1 to get the correct month
   var day = date.getDate();
 
   return day+"/"+month+"/"+year;
