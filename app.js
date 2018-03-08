@@ -21,6 +21,7 @@ var con = mysql.createConnection({
   password: "admin"
 });
 
+//check connection on app start
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -51,7 +52,7 @@ app.engine('hbs', hbs.express4({
     partialsDir: path.join(__dirname, '/views/partials')
 }));
 
-// use route for said page (route says what layout and view (hbs files) to use)
+// use route (javascript file) for said page (route says what layout and view (hbs files) to use
 app.use('/', index);
 app.use('/addrecords', addrecords);
 app.use('/viewrecords', viewrecords);

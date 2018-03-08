@@ -1,7 +1,9 @@
 <div class="top-container">
   <div class="white-text" id="addrecords-title">
     <h2>Calculator</h2>
-    <p class="blockquote-white">Fill out the form below with all the details of the relay then hit the submit button. <strong>All fields are required.</strong></p>
+    <p class="blockquote-white">
+      Fill out the form below with all the details of the relay then hit the submit button. <strong>All fields are required.</strong> Underneath the table of swimmers is the reults table with a
+      download button at the very top, as there can be thousands of combonations.</p>
     <img src="../public/images/scrolldown3.gif" all="Scroll Down Animation">
   </div>
 </div>
@@ -14,9 +16,11 @@
         <h3>STEP 1</h3>
         <p class="blockquote-primary">Select swimmers by age and gender:</p>
         <br />
+        <!-- Enter the year of birth required -->
         <input type="number" class="enter-year" name="calc-yob" placeholder="Year of birth, in format: YYYY" required min="0" max="9999"> <!-- year must only be 4 characters(integers) long and not negative-->
         <br />
         <br />
+        <!-- Enter the gender required -->
         <select required name="calc-gender">
           <option value="" disabled selected>Gender</option>
           <option value="0">Male</option>
@@ -28,6 +32,7 @@
         <h3>STEP 2</h3>
         <p class="blockquote-primary">Select relay details:</p>
         <br />
+        <!-- Enter the type of relay -->
         <select required name="calc-relay-type">
           <option value="" disabled selected>Relay Type</option>
           <option value="4">Freestyle (Frontcrawl)</option>
@@ -35,6 +40,7 @@
         </select>
         <br />
         <br />
+        <!-- Enter the distance of the relay -->
         <select required name="calc-relay-distance">
           <option value="" disabled selected>Distance</option>
           <option value="pb_25m">4x25m</option>
@@ -55,7 +61,7 @@
         <h3>STEP 3</h3>
         <p class="blockquote-primary">Calculate:</p>
         <br />
-        <button type="submit" class="btn btn-submit shadow white-text" id="calc-submit-hidden" style="display:none;">
+        <button type="submit" class="btn btn-submit shadow white-text" id="calc-submit-hidden" style="display:none;"></button>
         <button type="submit" class="btn btn-submit shadow white-text" id="calc-submit">
           <div class="row">
             <div class="col-5"></div>
@@ -63,6 +69,7 @@
             <div class="col-1"><img src="../public/images/submit.png" alt="Submit Icon"></div>
             <div class="col-5"></div>
           </div>
+        </button>
       </div>
     </div>
   </form>
@@ -74,7 +81,7 @@
   <h3 class="centre primary-text">Here's who will be in the calculation and their P.B. The next table will have the results.</h3>
 
   <br />
-
+  <!-- Table that will be filled with all applicable swimmers for the queried relay -->
   <table id="calc-swimmers-table" class="shadow">
     <tr>
       <th>First Name</th>
@@ -85,7 +92,44 @@
       <th>P.B. (for selected distance)</th>
     </tr>
   </table>
+
+  <br />
+  <br />
+  <br />
+
+  <!-- Button that will promt the user with a save as box to download the the results of the queried relay -->
+  <button class="btn btn-submit shadow white-text" onclick="exportCSV()">
+    <div class="row">
+      <div class="col-5"></div>
+      <div class="col-1"><h3>DOWNLOAD</h3></div>
+      <div class="col-1"><img src="../public/images/download.png" alt="Download Icon"></div>
+      <div class="col-5"></div>
+    </div>
+  </button>
+
+  <br />
+  <br />
+  <br />
+
+  <h3 class="centre primary-text">Here are the results of the calculation. Click the download button above the table to export your results a table (which can be opened on any OS).</h3>
+  <h4 class="centre primary-text">For medley relays, the stroke orde for swimmers is: Backcrawl, Breaststroke, Butterfly then Frontcrawl.</h4>
+
+  <br />
+  <!-- Table that will be filled with all the possible relays sorted from fastest to slowest -->
+  <table id="calc-results-table" class="shadow">
+    <tr>
+      <th>Relay Rank</th>
+      <th>Swimmer 1</th>
+      <th>Swimmer 2</th>
+      <th>Swimmer 3</th>
+      <th>Swimmer 4</th>
+      <th>Total Time</th>
+    </tr>
+  </table>
 </div>
 
-<!-- Find swimmers for relay and the times -->
+
+<!-- Combonation lib MIT licenced -->
+<script type="text/javascript" src="../public/js/combinations.js"></script>
+<!-- Post and Calculate -->
 <script type="text/javascript" src="../public/js/form-calculator.js"></script>

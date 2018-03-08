@@ -1,23 +1,13 @@
 // Call functions reagrding the form when the page is ready (loaded)
 $(document).ready(function() {
-  removeEnterSubmit();
   addSwimmer();
 });
-
-// Prevent the form submitting when accidently hitting enter
-function removeEnterSubmit() {
-  $(window).keydown(function(event) {
-    if (event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
-}
 
 // Values to be entered into db fields
 function addSwimmer() {
   $('#swimmer-submit').on('click', function(e) {
-    e.preventDefault();
+    e.preventDefault(); // prevent default action of submit so that the hidden button can check if the fields are valid (using HTML validation)
+    // store all the inputs that will be converted to JSON before sent to the server and inserted into the respected tables
     var values = {
       swimmer : {
         swimmer_forename : $('input[name="swimmer_forename"]').val(),
@@ -26,6 +16,7 @@ function addSwimmer() {
         swimmer_gender : $('select[name="swimmer_gender"]').val(),
       },
       distance_pb : {
+        // calling the getMillis function to convert the time into milliseconds
         fly : {
           pb_25m : getMillisTime("fly", 25),
           pb_50m : getMillisTime("fly", 50),
@@ -53,17 +44,19 @@ function addSwimmer() {
       }
     };
 
+    // check if the fields in the HTML form are all valid before posting
     if (!(document.getElementsByClassName("addSwimmer")[0].checkValidity())) {
+      // if it is not valid it will click the hidden button that will allow the HTML diaglouges to pop op - otherwise they will not
       document.getElementById("swimmer-submit-hidden").click();
     } else {
+      // if all the fields are valid continue with posting to the server
       $.ajax({
         url : "/addrecords",
         type : "POST",
         contentType : "application/json",
-        data : JSON.stringify(values),
-        success : function(response) {
+        data : JSON.stringify(values), // convert the var values into JSON string to be sent to the server
+        success : function(response) { // on success, the window will create a pop up confirm to the user their swimmer has been added
           if (response) {
-            console.log('Alerting success and clearing form');
             alert("Success! Your swimmer and his/her times have been added to our databse, check the View Records Page if they are there. Most recent entries will be at the top.");
             $('form.addSwimmer')[0].reset(); // Clear form
           }
@@ -74,13 +67,14 @@ function addSwimmer() {
 }
 
 // Convert the times for each distance of each stroke into milliseconds
+// This is will make adding uptimes for the calculation much easier,
+// it also avoid too many fields in the table on the database.
 // fly = Butterfly; bc = Backcrawl; brs = Breastroke; fc = Frontcrawl
 function getMillisTime(stroke, distance) {
   var mins = parseInt($('#' + stroke + distance + 'mins').val());
   var secs = parseInt($('#' + stroke + distance + 'secs').val());
   var millis = parseInt($('#' + stroke + distance + 'millis').val());
 
-  var totalMilliseconds = millis + (mins * 60 * 1000) + (secs * 1000);
-  console.log(totalMilliseconds); //Checking if the time is added up correctly
+  var totalMilliseconds = millis + (mins * 60 * 1000) + (secs * 1000); // converting each input box to milliseconds then summing them
   return totalMilliseconds;
 }

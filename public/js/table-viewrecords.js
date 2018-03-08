@@ -11,51 +11,31 @@ function requestSwimmers(data) {
     type : "POST",
     contentType : "application/json",
     data : [],
-    success : function(swimmersJson) {
-      renderTable(swimmersJson);
+    success : function(swimmers) {
+      renderTable(swimmers);
     }
   });
 }
 
 // Render the table with swimmers details from sroc.swimmer
-function renderTable(swimmersJson) {
+function renderTable(swimmers) {
+  // set up the columns for the HTML table
   var columns = ["swimmer_forename", "swimmer_surname", "swimmer_dob", "swimmer_gender"];
-
-  for (var i = 0; i < swimmersJson.length; i++) {
+  // use nested for loop to insert all the relays into the table
+  for (var i = 0; i < swimmers.length; i++) {
     var row$ = $('<tr/>');
     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
       if(columns[colIndex] == "swimmer_dob"){
-        swimmersJson[i][columns[colIndex]] = beautifyDate(swimmersJson[i][columns[colIndex]]);
+        // use function beautifyDate convert time into UK format
+        swimmers[i][columns[colIndex]] = beautifyDate(swimmers[i][columns[colIndex]]);
       }
       if(columns[colIndex] == "swimmer_gender"){
-        swimmersJson[i][columns[colIndex]] = assignGender(swimmersJson[i][columns[colIndex]]);
+        // use fuction assignGender to conver number into the name of the gender
+        swimmers[i][columns[colIndex]] = assignGender(swimmers[i][columns[colIndex]]);
       }
-      var cellValue = swimmersJson[i][columns[colIndex]];
-      if (cellValue == null) cellValue = "";
+      var cellValue = swimmers[i][columns[colIndex]];
       row$.append($('<td/>').html(cellValue));
     }
-    $('table#swimmers-table').append(row$);
+    $('table#swimmers-table').append(row$); // select which table to instert into
   }
-}
-
-function beautifyDate(d){
-  var date = new Date(d);
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1; // need to add 1 to get the correct month
-  var day = date.getDate();
-
-  return day+"/"+month+"/"+year;
-}
-
-// Did you just assign my gender?!?
-function assignGender(g){
-  var gender = '';
-  if (g == 0){
-    gender = "Male";
-  }
-  else if (g == 1) {
-    gender = "Female";
-  }
-  // does not support non-binary genders as there are only 2 genders (m/f) in swimming competitions
-  return gender;
 }

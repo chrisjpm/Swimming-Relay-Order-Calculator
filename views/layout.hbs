@@ -1,26 +1,31 @@
 <!DOCTYPE html>
+<!-- I am using Handlesbars - a variation of Mustache HTML. Mustache provides templating and use of logic and variables -->
+<!-- layout.hbs is a layout that is imported to all pages and filled with the page's respective hbs file declared in its route javascript file -->
 <html>
 
   <head>
+    <!-- Set meta data -->
     <meta charset="utf-8">
-    <title>{{{domain}}} {{{title}}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../public/css/style.css">
-    <link rel="icon" href="../public/images/favicon.png" type="image/png">
+    <title>{{{domain}}} {{{title}}}</title> <!-- domain and title are variables that have been set values in the route javascript file for the page so that they dynamically change-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- mobile first display, sets the viewport to fill the screen fully with the page's content -->
+    <link rel="stylesheet" href="../public/css/style.css"> <!-- Path to stylesheet to be applied to all pages -->
+    <link rel="icon" href="../public/images/favicon.png" type="image/png"> <!-- Favicon for the website -->
   </head>
 
   <body>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../public/js/animation.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <!-- require jquery lib -->
+    <script type="text/javascript" src="../public/js/animation.js"></script> <!-- Path to animations js file to be applied to all pages -->
+    <script type="text/javascript" src="../public/js/customFunctions.js"></script> <!-- Path to custom functions js file to be applied to all pages -->
 
+    <!-- Layout for all pages -->
     <header id="header-wrapper">
-      {{>header}}
+      {{>header}} <!-- Insert the partial (hbs file in the partials folder) header.hbs into the <header> -->
     </header>
     <main id="content-wrapper" class="container">
-      {{{body}}}
+      {{{body}}} <!-- Insert the view (hbs file in the views folder) that has been declared in the page's respective route (javascript file in the routes folder) -->
     </main>
     <footer id="footer-wrapper">
-      {{>footer}}
+      {{>footer}} <!-- Insert the partial (hbs file in the partials folder) footer.hbs into the <footer> -->
     </footer>
   </body>
 
