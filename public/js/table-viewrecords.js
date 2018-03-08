@@ -25,6 +25,7 @@ function renderTable(swimmers) {
   for (var i = 0; i < swimmers.length; i++) {
     var row$ = $('<tr/>');
     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var cellValue = swimmers[i][columns[colIndex]];
       if(columns[colIndex] == "swimmer_dob"){
         // use function beautifyDate convert time into UK format
         swimmers[i][columns[colIndex]] = beautifyDate(swimmers[i][columns[colIndex]]);
@@ -33,7 +34,6 @@ function renderTable(swimmers) {
         // use fuction assignGender to conver number into the name of the gender
         swimmers[i][columns[colIndex]] = assignGender(swimmers[i][columns[colIndex]]);
       }
-      var cellValue = swimmers[i][columns[colIndex]];
       row$.append($('<td/>').html(cellValue));
     }
     $('table#swimmers-table').append(row$); // select which table to instert into

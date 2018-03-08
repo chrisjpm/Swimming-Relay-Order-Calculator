@@ -59,6 +59,7 @@ function renderTableSwimmers(swimmers) {
   for (var i = 0; i < swimmers.length; i++) {
     var row$ = $('<tr/>');
     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var cellValue = swimmers[i][columns[colIndex]];
       if (columns[colIndex] == "swimmer_dob") {
         // use function beautifyDate convert time into UK format
         swimmers[i][columns[colIndex]] = beautifyDate(swimmers[i][columns[colIndex]]);
@@ -67,7 +68,6 @@ function renderTableSwimmers(swimmers) {
         // use fuction assignGender to conver number into the name of the gender
         swimmers[i][columns[colIndex]] = assignGender(swimmers[i][columns[colIndex]]);
       }
-      var cellValue = swimmers[i][columns[colIndex]];
       row$.append($('<td/>').html(cellValue));
     }
     $('table#calc-swimmers-table').append(row$); // select which table to instert into
@@ -99,9 +99,9 @@ function calculator(swimmers){
     // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
     // the total number of combos is 4C{swimmers.length} (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
     var relays = k_combinations(swimmers, 4);
-
+    console.log(relays);
     // insert relays into table, then call the sorting function (after the if else statement)
-    //renderTableResultsFc(relays);
+    renderTableResultsFc(relays);
   } else { // else medley (1, 2, 3, 4 = medley)
     var arrFly = []; // init fly array empty
     var arrBc = []; // init backcrawl array empty
@@ -129,36 +129,36 @@ function calculator(swimmers){
   // call sort function after the relay combos and total times have been found
 }
 
-// // Render the table with results of an Freestyle calculation
-// function renderTableResultsFc(relays) {
-//   // First clear table if there was a past calculation in the same session
-//   $('td').remove();
-//
-//   // Will add rank after sorting, otherwise numbers will not be in ascedning order
-//   var rank = "";
-//   // Set field names from the 2D array of relay combos
-//   var swimmer1 = relays[0][0].swimmer_forename + " " + relays[0][0].swimmer_surname;
-//   var swimmer2 = relays[1][1].swimmer_forename + " " + relays[1][1].swimmer_surname;
-//   var swimmer3 = relays[2][2].swimmer_forename + " " + relays[2][2].swimmer_surname;
-//   var swimmer4 = relays[3][3].swimmer_forename + " " + relays[3][3].swimmer_surname;
-//   // find the distance that was selected as to select the element in the array
-//   var pb = document.getElementsByName("calc-relay-distance")[0].value;
-//   // nested for loop to find sum of all swimmers pbs to find the total time
-//   var totalTime = 0;
-//   for (i = 0; i < 3; i++) {
-//     for (j = 0; j < 3; i++) {
-//       totalTime+=relays[i][j]. + pb;
-//     }
-//   }
-//   // set up the comlumns for the table in an array
-//   var columns = [rank, swimmer1, swmmer2, swimmer3, swimmer4, totalTime];
-//   // use nested for loop to insert all the relays into the table
-//   for (var i = 0; i < relays.length; i++) {
-//     var row$ = $('<tr/>');
-//     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-//       var cellValue = relays[i][columns[colIndex]];
-//       row$.append($('<td/>').html(cellValue));
-//     }
-//     $('table#calc-results-table').append(row$); // select which table to instert into
-//   }
-// }
+// Render the table with results of an Freestyle calculation
+function renderTableResultsFc(relays) {
+  // First clear table if there was a past calculation in the same session
+  $('td').remove();
+
+  // Will add rank after sorting, otherwise numbers will not be in ascedning order
+  var rank = '';
+  // find the distance that was selected as to select the element in the array
+  var pb = document.getElementsByName("calc-relay-distance")[0].value;
+  // for loop to find sum of all swimmers pbs to find the total time
+  var totalTime = 2;
+  // set up the comlumns for the table in an array
+  var columns = ["rank", "swimmer1", "swimmer2", "swimmer3", "swimmer4", "totalTime"];
+  // use nested for loop to insert all the relays into the table
+  for (var i = 0; i < relays.length; i++) {
+    var row$ = $('<tr/>');
+    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var cellValue = "";
+      // add swimmers' names to the swimmer columns
+      if(columns[colIndex].indexOf("swimmer") > -1){
+        var index = parseInt(columns[colIndex].replace("swimmer",""));
+        index--;
+        cellValue = relays[i][index].swimmer_forename + " " + relays[i][index].swimmer_surname;
+      }
+      // find sum off all times
+      if(columns[colIndex] == "totalTime"){
+        cellValue = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb];
+      }
+      row$.append($('<td/>').html(cellValue));
+    }
+    $('table#calc-results-table').append(row$); // select which table to instert into
+  }
+}
