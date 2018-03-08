@@ -31,9 +31,9 @@ function getSwimmerDetails() {
         data: JSON.stringify(values),
         success: function(swimmers) {
           if (isValidRelay(swimmers)) {
-            // if the fucntion isValidRelay is true, call the functions that create the table of applicable swimmers and the calculation (and table for result)
+            // if the function isValidRelay is true, call the function that creates the table of applicable swimmers and then the find combinations function
             renderTableSwimmers(swimmers);
-            calculator(swimmers);
+            findCombos(swimmers); // inside this function, it will call the calculator function and sort function there after
           } else {
             window.alert('Sorry! Not enough swimmers match the criteria for this relay.'); // if the result from the fucntion isValidRelay is false alert the user
                                                                                            // and do not begin the calculation process
@@ -79,29 +79,30 @@ function isValidRelay(swimmers) {
   var relayType = $('select[name="calc-relay-type"]').val();
   if (relayType == '4') {
     if (swimmers.length < 4) { //there must be at least 4 people to make a relay team
+      // if there are less than 4 swimmers a relay cannot be made, hence it returns false
       return false;
-    } else {
+    } else { // there is more or equal to 4 swimmers applicable so will return true
       return true;
     }
   } else {
     if (swimmers.length < 16) { // The Json is 4x the size becuase it gets all 4 strokes. This still finds if there are less than 4 swimmers
+      // if there are less than 4 swimmers a relay cannot be made, hence it returns false
       return false;
-    } else {
+    } else { // there is more or equal to 4 swimmers applicable so will return true
       return true;
     }
   }
 }
 
-function calculator(swimmers){
-  //fc relay calculation
+function findCombos(swimmers){
   //finds if the input's name is 4 (for fc) or 1,2,3,4 (for medley)
   if (document.getElementsByName("calc-relay-type")[0].value == 4) { // if frontcrawl (4 = fc)
     // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
     // the total number of combos is 4C{swimmers.length} (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
     var relays = k_combinations(swimmers, 4);
     console.log(relays);
-    // insert relays into table, then call the sorting function (after the if else statement)
-    renderTableResultsFc(relays);
+    // insert relays into table, then call the sorting function
+    renderTableResults(relays);
   } else { // else medley (1, 2, 3, 4 = medley)
     var arrFly = []; // init fly array empty
     var arrBc = []; // init backcrawl array empty
@@ -124,13 +125,14 @@ function calculator(swimmers){
         arrFc.push(swimmers[i]);
       }
     }
-  }
 
-  // call sort function after the relay combos and total times have been found
+    //var relays = k_combinations(????, 4);
+    //renderTableResults(relays);
+  }
 }
 
-// Render the table with results of an Freestyle calculation
-function renderTableResultsFc(relays) {
+// Render the table with results then call sorting fucntion
+function renderTableResults(relays) {
   // First clear table if there was a past calculation in the same session
   $('td').remove();
 
@@ -161,4 +163,31 @@ function renderTableResultsFc(relays) {
     }
     $('table#calc-results-table').append(row$); // select which table to instert into
   }
+  bubbleSortTable(); // sort the times from fastest to slowest then insert incrementing value into the rank column
+}
+
+//Bubble sort for the results and insert incrementing value into the rank column
+function bubbleSortTable() {
+  do {
+    var switching = false; // init switching as false
+    var shouldSwap;
+    var numRows = document.getElementById("calc-results-table").rows.length; // find the number or rows in the table
+    var row =  $('#calc-results-table tr'); // var to hold select tr in table
+    for (var i = 1; i < (numRows - 1); i++) { // start at 1 so as to not include the header <tr> and that means we must also subtract 1 from the number of rows and the last row doesnt need to compare
+      var a = row[i].getElementsByTagName('td')[5]; // td number 6 is position of the time in the tr. Inner HTML gets the text/integers inside the td
+      var b = row[i+1].getElementsByTagName('td')[5]; // the next row's value
+      console.log("Values - a: " + a.innerHTML + " b: " + b.innerHTML);
+      if (a.innerHTML > b.innerHTML) { // if the row before is bigger then the next row, set shouldSwap to true
+        console.log("switching " + a.innerHTML + " and " + b.innerHTML);
+        shouldSwitch = true;
+      }
+      if (shouldSwitch) { // if shouldSwap is true, swap the two rows positions in the table so that the times will be in ascedning order
+        row[i].parentNode.insertBefore(row[i + 1], row[i]); // inserts the row behind the inital row checked against
+        switching = true; // since true will start the loop again
+      } else {
+        switching = false;
+      }
+    }
+  } while (switching) // loop while switching is true
+  console.log("Bubble sort complete!");
 }

@@ -4,14 +4,14 @@ $(document).ready(function() {
   imageHover();
 })
 
-// Adding underline to active page in header and also removing its hover animation
+// Adding underline to active page in header and also removing its hover animation when on the respected page (keep the underline static)
 function headerUnderline() {
   switch (window.location.pathname) {
     // using a case to select the page to modify
     case '/':
       $('li#nav-home').addClass('nav-active');
       $('li#nav-home a').removeClass('a-nav-hover');
-      break;
+      break; // The break statement breaks the case and continues executing the code after the case, i.e for index it will not execute the addrecords case statement
     case '/addrecords':
       $('li#nav-a-records').addClass('nav-active');
       $('li#nav-a-records a').removeClass('a-nav-hover');

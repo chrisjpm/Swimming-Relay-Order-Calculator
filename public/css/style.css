@@ -96,6 +96,10 @@ html {
 .btn-submit {
   background-color: #1A9D49;
 }
+.btn-submit:hover {
+  cursor: pointer;
+  background-color: rgba(26, 157, 73, 0.85);
+}
 .btn div div img {
   height: 2vh;
   margin-top: 0.5vh;
@@ -286,10 +290,6 @@ option {
 }
 button {
   width: 100%;
-}
-button:hover {
-  cursor: pointer;
-  background-color: #1A9D49EE;
 }
 button img {
   height: 2vh;
