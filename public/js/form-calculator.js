@@ -142,7 +142,7 @@ function renderTableResults(relays) {
   var pb = document.getElementsByName("calc-relay-distance")[0].value;
 
   var sorting = true;
-  // use nested for loop to insert all the relays into the table
+  // insert all the relays into the table
   var array_of_magic = [];
   for (var i = 0; i < relays.length; i++) {
     var row$ = $('<tr/>');
