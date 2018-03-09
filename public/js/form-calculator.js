@@ -31,6 +31,8 @@ function getSwimmerDetails() {
         data: JSON.stringify(values),
         success: function(swimmers) {
           if (isValidRelay(swimmers)) {
+            // First clear table if there was a past calculation in the same session
+            $('td').remove();
             // if the function isValidRelay is true, call the function that creates the table of applicable swimmers and then the find combinations function
             renderTableSwimmers(swimmers);
             findCombos(swimmers); // inside this function, it will call the calculator function and sort function there after
@@ -46,9 +48,6 @@ function getSwimmerDetails() {
 
 // Render the table with swimmers details from sroc.swimmer and the times needed for the relay from sroc.distance_pb
 function renderTableSwimmers(swimmers) {
-  // First clear table if there was a past calculation in the same session
-  $('td').remove();
-
   // Show applicable swimmers in first table
 
   // find which distance PB to choose from the array swimmers
@@ -67,6 +66,9 @@ function renderTableSwimmers(swimmers) {
       if (columns[colIndex] == "swimmer_gender") {
         // use fuction assignGender to conver number into the name of the gender
         swimmers[i][columns[colIndex]] = assignGender(swimmers[i][columns[colIndex]]);
+      }
+      if (columns[colIndex] == distancePb) {
+        swimmers[i][columns[colIndex]] = swimmers[i][columns[colIndex]];
       }
       row$.append($('<td/>').html(cellValue));
     }
@@ -95,14 +97,14 @@ function isValidRelay(swimmers) {
 }
 
 function findCombos(swimmers){
+  var relays = []; // init empty array for relays
   //finds if the input's name is 4 (for fc) or 1,2,3,4 (for medley)
   if (document.getElementsByName("calc-relay-type")[0].value == 4) { // if frontcrawl (4 = fc)
     // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
     // the total number of combos is 4C{swimmers.length} (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
-    var relays = k_combinations(swimmers, 4);
+    relays = k_combinations(swimmers, 4);
     console.log(relays);
     // insert relays into table, then call the sorting function
-    renderTableResults(relays);
   } else { // else medley (1, 2, 3, 4 = medley)
     var arrFly = []; // init fly array empty
     var arrBc = []; // init backcrawl array empty
@@ -127,17 +129,14 @@ function findCombos(swimmers){
     }
 
     //var relays = k_combinations(????, 4);
-    //renderTableResults(relays);
   }
+  renderTableResults(relays); // render the table with all combos ready for sorting
 }
 
 // Render the table with results then call sorting fucntion
 function renderTableResults(relays) {
-  // First clear table if there was a past calculation in the same session
-  $('td').remove();
-
   // Will add rank after sorting, otherwise numbers will not be in ascedning order
-  var rank = '';
+  var rank;
   // find the distance that was selected as to select the element in the array
   var pb = document.getElementsByName("calc-relay-distance")[0].value;
   // for loop to find sum of all swimmers pbs to find the total time
@@ -163,31 +162,96 @@ function renderTableResults(relays) {
     }
     $('table#calc-results-table').append(row$); // select which table to instert into
   }
-  bubbleSortTable(); // sort the times from fastest to slowest then insert incrementing value into the rank column
+
+  // sorting and adding ranks
+  var oneRelay = false;
+  var numRows = document.getElementById("calc-results-table").rows.length; // find the number or rows in the table
+  var row =  $('#calc-results-table tr'); // var to hold tr location
+  // if the relay has more than 1 combonation then call the bubble sort function
+  var bubbleSortComplete = false;
+  if(relays.length > 1) {
+    bubbleSortComplete = bubbleSortTable(numRows, row); // sort the times from fastest to slowest then insert incrementing value into the rank column
+  } else { // else set boolean oneRelay to true
+    oneRelay = true;
+  }
+  // if there was only 1 relay combonation OR the buuble sort is complete, add the ranks column's values and convert the times to MM:SS.mm
+  if (oneRelay == true || bubbleSortComplete == true) {
+    addRanks(numRows, row);
+    convertTime(numRows, row);
+  }
 }
 
-//Bubble sort for the results and insert incrementing value into the rank column
-function bubbleSortTable() {
+// Bubble sort for the results and insert incrementing value into the rank column
+function bubbleSortTable(numRows, row) {
+  var switching; // init switching app outside do while loop
+  var breaker = 0;
   do {
-    var switching = false; // init switching as false
-    var shouldSwap;
-    var numRows = document.getElementById("calc-results-table").rows.length; // find the number or rows in the table
-    var row =  $('#calc-results-table tr'); // var to hold select tr in table
-    for (var i = 1; i < (numRows - 1); i++) { // start at 1 so as to not include the header <tr> and that means we must also subtract 1 from the number of rows and the last row doesnt need to compare
+    switching = false; // set switching to false at beginning of loop, will stay false until set true when a switch does not need to be made and check the next 2 rows
+
+    for (var i = 1; i < numRows - 1; i++) { // start at second tr so as to not include the header tr
       var a = row[i].getElementsByTagName('td')[5]; // td number 6 is position of the time in the tr. Inner HTML gets the text/integers inside the td
       var b = row[i+1].getElementsByTagName('td')[5]; // the next row's value
-      console.log("Values - a: " + a.innerHTML + " b: " + b.innerHTML);
-      if (a.innerHTML > b.innerHTML) { // if the row before is bigger then the next row, set shouldSwap to true
+      // console.log("Values - a: " + a.innerHTML + " b: " + b.innerHTML);
+
+      if (a.innerHTML > b.innerHTML) { // if the row before is bigger then the next row, swap the two rows positions in the table so that the times will be in ascedning order
         console.log("switching " + a.innerHTML + " and " + b.innerHTML);
-        shouldSwitch = true;
-      }
-      if (shouldSwitch) { // if shouldSwap is true, swap the two rows positions in the table so that the times will be in ascedning order
-        row[i].parentNode.insertBefore(row[i + 1], row[i]); // inserts the row behind the inital row checked against
+        //row[i].parentNode.insertBefore(row[i+1], row[i]); // swaps rows to the lowest value goes up
+        swapRows(b,1); // fucntion will move b down 1 position
+        var temp1 = row[i];
+        var temp2 = row[i+1];
+        row[i] = temp2;
+        row[i+1] = temp1;
         switching = true; // since true will start the loop again
-      } else {
-        switching = false;
       }
+
+      // console.log("No switch needed");
     }
-  } while (switching) // loop while switching is true
+    //breaker++;
+  } while (switching) // loop while switching is true. stops when false = sort complete
   console.log("Bubble sort complete!");
+  if(breaker > 198){
+    console.log("YOU BLEW IT, KAPISH");
+  }
+  return true;
 }
+
+function swapRows(elem_choice, direction) {
+    var span = elem_choice.parentNode;
+    var td = span.parentNode;
+
+    if (direction === -1 && span.previousElementSibling) {
+        td.insertBefore(span, span.previousElementSibling);
+    } else if (direction === 1 && span.nextElementSibling) {
+        td.insertBefore(span, span.nextElementSibling.nextElementSibling)
+    }
+}
+
+function addRanks(numRows, row) {
+  // for (var i = 1; i <= numRows; i++) { // start at second tr so as to not include the header tr
+  //   row[i].getElementsByTagName('td')[0].innerHTML = i; // insert rank on each row
+  // }
+}
+
+function convertTime(numRows, row) {
+  // for (var i = 1; i <= numRows; i++) { // start at second tr so as to not include the header tr
+  //   row[i].getElementsByTagName('td')[5].innerHTML = millisReconvert(row[i].getElementsByTagName('td')[5].innerHTML); // insert rank on each row
+  // }
+}
+
+// function boobleSort(){
+//   var switching;
+//   var arr = [10,9,8,7,6,5,4,3,2,1];
+//
+//   do{
+//     switching = false;
+//     for(var i = 0; i < arr.length -1; i++){
+//       if(arr[i] > arr[i+1]){
+//         switching = true;
+//         var temp1 = arr[i];
+//         var temp2 = arr[i+1];
+//         arr[i+1] = temp1;
+//         arr[i] = temp2;
+//       }
+//     }
+//   } while(switching == true);
+// }

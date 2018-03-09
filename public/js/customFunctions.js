@@ -23,7 +23,7 @@ function beautifyDate(d) {
 // Chnage the number (0/1) to the assigned gender
 function assignGender(g) {
   var gender = ""; // init empty
-  // 0 and 1 are the 3 values of the select option for gender
+  // 0 and 1 are the 2 values of the select option for gender
   if (g == 0) {
     gender = "Male";
   } else { // 1
@@ -43,6 +43,24 @@ function relayType(r) {
   }
 
   return type;
+}
+// Convert millisecond back to normal time format - MM:SS.mm
+function millisReconvert(m) {
+  var time = '';
+  var mins = Math.floor((m / 60000) % 60); // find the highest value for mins
+  var secs = Math.floor((m / 1000) % 60); // find the highest value for seconds
+  var millis = m - ((mins * 60000) + (secs * 1000)); // find the remaining milliseconds
+  // put a leading zero infront of number if it is less than 10
+  if(mins < 10) {
+    mins = "0" + mins;
+  }
+  if(secs < 10) {
+    secs = "0" + secs;
+  }
+  if(millis < 10) {
+    millis = "0" + millis;
+  }
+  return mins + ":" + secs + "." + millis;
 }
 // Make relay distcance
 function relayDistance(dist) {
