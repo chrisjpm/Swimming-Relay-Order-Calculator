@@ -80,19 +80,18 @@ function renderTableSwimmers(swimmers) {
       var cellValue = swimmers[i][columns[colIndex]];
       if (columns[colIndex] == "swimmer_dob") {
         // use function beautifyDate convert time into UK format
-        cellValue = beautifyDate(swimmers[i][columns[colIndex]]);
+        swimmers[i][columns[colIndex]] = beautifyDate(swimmers[i][columns[colIndex]]);
       }
       if (columns[colIndex] == "swimmer_gender") {
         // use fuction assignGender to conver number into the name of the gender
-        cellValue = assignGender(swimmers[i][columns[colIndex]]);
+        swimmers[i][columns[colIndex]] = assignGender(swimmers[i][columns[colIndex]]);
       }
       if (columns[colIndex] == distancePb) {
-        // use fuction assignGender to conver number into the name of the gender
-        cellValue = millisReconvert(swimmers[i][columns[colIndex]]);
+        swimmers[i][columns[colIndex]] = swimmers[i][columns[colIndex]];
       }
-      row$.append($('<td/>').html(cellValue));
+      row$.append($('</td>').html(cellValue));
     }
-    $('#calc-swimmers-table').append(row$); // select which table to instert into
+    $('table#calc-swimmers-table').append(row$); // select which table to instert into
   }
   findCombos(swimmers); // inside this function, it will call the calculator function and sort function there after
 }
@@ -131,57 +130,95 @@ function findCombos(swimmers){
     }
     //var relays = k_combinations(????, 4);
   }
-  renderTableResults(relays)
+  renderTableResults(relays); // render the table with all combos ready for sorting
 }
 
 // Render the table with results then call sorting fucntion
 function renderTableResults(relays) {
   // Will add rank after sorting, otherwise numbers will not be in ascedning order
-  console.log(relays);
+  var rank;
   // find the distance that was selected as to select the element in the array
   var pb = document.getElementsByName("calc-relay-distance")[0].value;
-
-  var sorting = true;
+  // for loop to find sum of all swimmers pbs to find the total time
+  var totalTime = 2;
+  // set up the comlumns for the table in an array
+  var columns = ["rank", "swimmer1", "swimmer2", "swimmer3", "swimmer4", "totalTime"];
   // use nested for loop to insert all the relays into the table
-  var array_of_magic = [];
   for (var i = 0; i < relays.length; i++) {
     var row$ = $('<tr/>');
-    var newRow = [];
-    newRow[0] = null;
-    newRow[1] = relays[i][0].swimmer_forename + " " + relays[i][0].swimmer_surname;
-    newRow[2] = relays[i][1].swimmer_forename + " " + relays[i][1].swimmer_surname;
-    newRow[3] = relays[i][2].swimmer_forename + " " + relays[i][2].swimmer_surname;
-    newRow[4] = relays[i][3].swimmer_forename + " " + relays[i][3].swimmer_surname;
-    newRow[5] = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb];
-    array_of_magic[i] = newRow;
-  }
-
-  // Bubble sort
-  do {
-    sorting = false;
-    for(var i = 0; i < array_of_magic.length -1; i++){
-      if(array_of_magic[i][5] > array_of_magic[i+1][5]){
-        sorting = true;
-        var temp1 = array_of_magic[i];
-        var temp2 = array_of_magic[i+1];
-        array_of_magic[i] = temp2;
-        array_of_magic[i+1] = temp1;
+    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var cellValue = "";
+      // add swimmers' names to the swimmer columns
+      if(columns[colIndex].indexOf("swimmer") > -1){
+        var index = parseInt(columns[colIndex].replace("swimmer",""));
+        index--;
+        cellValue = relays[i][index].swimmer_forename + " " + relays[i][index].swimmer_surname;
       }
+      // find sum off all times
+      if(columns[colIndex] == "totalTime"){
+        cellValue = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb];
+      }
+      row$.append($('</td>').html(cellValue));
     }
-  } while (sorting);
-
-  for(var i = 0; i < array_of_magic.length; i++){
-    array_of_magic[i][0] = i+1;
-    array_of_magic[i][5] = millisReconvert(array_of_magic[i][5]);
-
-    var html = "<tr>";
-    for(var j = 0; j < array_of_magic[i].length; j++){
-      html += "<td>"+array_of_magic[i][j]+"</td>";
-    }
-    html+="</tr>";
-
-    $('table#calc-results-table').append(html);
+    $('table#calc-results-table').append(row$); // select which table to instert into
   }
 
-  console.log(array_of_magic);
+  // sorting and adding ranks
+  var oneRelay = false;
+  var numRows = document.getElementById("calc-results-table").rows.length; // find the number or rows in the table
+  var row =  $('#calc-results-table tr'); // var to hold tr location
+  // if the relay has more than 1 combonation then call the bubble sort function
+  var bubbleSortComplete = false;
+  if(relays.length > 1) {
+    //bubbleSortComplete = bubbleSortTable(numRows, row); // sort the times from fastest to slowest then insert incrementing value into the rank column
+    bubbleSortTable(numRows, row); // sort the times from fastest to slowest then insert incrementing value into the rank column
+  } else { // else set boolean oneRelay to true
+    oneRelay = true;
+  }
+  // if there was only 1 relay combonation OR the buuble sort is complete, add the ranks column's values and convert the times to MM:SS.mm
+  // if (oneRelay == true || bubbleSortComplete == true) {
+  //   addRanks(numRows, row);
+  //   convertTime(numRows, row);
+  // }
+}
+
+// Bubble sort for the results and insert incrementing value into the rank column
+function bubbleSortTable(numRows, row) {
+  var switching; // init switching app outside do while loop
+  var breaker = 0;
+  do {
+    switching = false; // set switching to false at beginning of loop, will stay false until set true when a switch does not need to be made and check the next 2 rows
+
+    for (var i = 1; i < numRows - 1; i++) { // start at second tr so as to not include the header tr
+      var a = row[i].getElementsByTagName('td')[5]; // td number 6 is position of the time in the tr. Inner HTML gets the text/integers inside the td
+      var b = row[i+1].getElementsByTagName('td')[5]; // the next row's value
+      // console.log("Values - a: " + a.innerHTML + " b: " + b.innerHTML);
+
+      if (a.innerHTML > b.innerHTML) { // if the row before is bigger then the next row, swap the two rows positions in the table so that the times will be in ascedning order
+        console.log("switching " + a.innerHTML + " and " + b.innerHTML);
+        row[i].parentNode.insertBefore(row[i+1], row[i]); // swaps rows to the lowest value goes up
+        switching = true; // since true will start the loop again
+      }
+
+      // console.log("No switch needed");
+    }
+    //breaker++;
+  } while (switching) // loop while switching is true. stops when false = sort complete
+  console.log("Bubble sort complete!");
+  if(breaker > 198){
+    console.log("YOU BLEW IT, KAPISH");
+  }
+  return true;
+}
+
+function addRanks(numRows, row) {
+  // for (var i = 1; i <= numRows; i++) { // start at second tr so as to not include the header tr
+  //   row[i].getElementsByTagName('td')[0].innerHTML = i; // insert rank on each row
+  // }
+}
+
+function convertTime(numRows, row) {
+  // for (var i = 1; i <= numRows; i++) { // start at second tr so as to not include the header tr
+  //   row[i].getElementsByTagName('td')[5].innerHTML = millisReconvert(row[i].getElementsByTagName('td')[5].innerHTML); // insert rank on each row
+  // }
 }

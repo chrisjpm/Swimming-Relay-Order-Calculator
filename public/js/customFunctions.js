@@ -60,6 +60,7 @@ function millisReconvert(m) {
   if(millis < 10) {
     millis = "0" + millis;
   }
+
   return mins + ":" + secs + "." + millis;
 }
 // Make relay distcance
@@ -104,7 +105,6 @@ function downloadCSV(csv) {
   var time = new Date();
   time.getHours();
   time.getMinutes();
-  time.getSeconds();
   // Set file name
   var name = document.getElementsByName("calc-yob")[0].value + "-" + assignGender(document.getElementsByName("calc-gender")[0].value) + "-" + relayType(document.getElementsByName("calc-relay-type")[0].value) + "-" + relayDistance(document.getElementsByName("calc-relay-distance")[0].value) + "-" + time + ".csv";
   // File to to csv
