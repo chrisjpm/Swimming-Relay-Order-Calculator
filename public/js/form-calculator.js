@@ -169,7 +169,7 @@ function renderTableResults(relays) {
       }
     }
   } while (sorting);
-
+  // add values to rank column and conver milliseconds to MM:SS.mm format
   for(var i = 0; i < array_of_magic.length; i++){
     array_of_magic[i][0] = i+1;
     array_of_magic[i][5] = millisReconvert(array_of_magic[i][5]);
