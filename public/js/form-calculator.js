@@ -100,50 +100,53 @@ function renderTableSwimmers(swimmers) {
 // Find all combinations of swimmers
 function findCombos(swimmers){
   var relays = []; // init empty array for relays
-  //finds if the input's name is 4 (for fc) or 1,2,3,4 (for medley)
-  if (document.getElementsByName("calc-relay-type")[0].value == 4) { // if frontcrawl (4 = fc)
-    // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
-    // the total number of combos is 4C{swimmers.length} (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
-    relays = k_combinations(swimmers, 4);
-    console.log(relays);
-    // insert relays into table, then call the sorting function
-  } else { // else medley (1, 2, 3, 4 = medley)
-    var arrFly = []; // init fly array empty
-    var arrBc = []; // init backcrawl array empty
-    var arrBrs = []; // init breastroke array empty
-    var arrFc = []; // init frontcrawl array empty
 
-    for (var i = 0; i < swimmers.length; i++) {
-      //split up swimmers array by strokes
-      if (i < (swimmers.length / 4)) {
-        //add the first quater of the array to the fly array
-        arrFly.push(swimmers[i]);
-      } else if (i >= (swimmers.length / 4) && i < (swimmers.length / 2)) {
-        //add the second quater of the array to the fly array
-        arrBc.push(swimmers[i]);
-      } else if (i >= (swimmers.length / 2) && i < ((3 / 4) * swimmers.length)) {
-        //add the third quater of the array to the fly array
-        arrBrs.push(swimmers[i]);
-      } else {
-        //add the last quater of the array to the fly array
-        arrFc.push(swimmers[i]);
+  //finds if the input's name is 4 (for fc) or 1,2,3,4 (for medley)
+  // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
+  // the total number of combos is 4Cswimmers.length [4 Choose swimmers.length] (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
+  relays = k_combinations(swimmers, 4);
+  var getTheseBoisOut = [];
+  if(document.getElementsByName("calc-relay-type")[0].value == 1, 2, 3, 4) { // if medley we need to pick out invalid relays (ie same swimmer and/or stroke > 1 times in 1 relay)
+    //take out relays with same swimmer or stroke appearing more than once
+    for (var i = 0; i < relays.length; i++) {
+      for (var j = 0; j < 4; j++) {
+        for (var k = 0; k < 4; k++) {
+          // checks if the first swimmer forename+surname is equal to any other swimmers in the combination, and will not compare with itself
+          if((relays[i][j].swimmer_forename + relays[i][j].swimmer_surname) == (relays[i][k].swimmer_forename + relays[i][k].swimmer_surname) && (j != k)) {
+            if(!invalidRelays.includes(i)){
+              invalidRelays.push(i);
+            }
+          }
+          // checks if the stroke is equal to any other strokes in the combination, and will not compare with itself
+          if((relays[i][j].stroke_name) == (relays[i][k].stroke_name) && (j != k)) {
+            if(!invalidRelays.includes(i)){
+              invalidRelays.push(i);
+            }
+          }
+        }
       }
     }
-    //var relays = k_combinations(????, 4);
+
+    for (var i = 0; i < invalidRelays.length; i++) {
+      relays.splice(invalidRelays[i]-i, 1);
+    }
   }
-  renderTableResults(relays)
+  // call function to order and render result table
+  renderTableResults(relays);
 }
 
 // Render the table with results then call sorting fucntion
 function renderTableResults(relays) {
   // Will add rank after sorting, otherwise numbers will not be in ascedning order
-  console.log(relays);
+  // console.log(relays);
   // find the distance that was selected as to select the element in the array
   var pb = document.getElementsByName("calc-relay-distance")[0].value;
 
   var sorting = true;
   // insert all the relays into the table
-  var array_of_magic = [];
+
+  // put each tow in table into an array ready for sorting
+  var sortedResults = [];
   for (var i = 0; i < relays.length; i++) {
     var row$ = $('<tr/>');
     var newRow = [];
@@ -153,35 +156,35 @@ function renderTableResults(relays) {
     newRow[3] = relays[i][2].swimmer_forename + " " + relays[i][2].swimmer_surname;
     newRow[4] = relays[i][3].swimmer_forename + " " + relays[i][3].swimmer_surname;
     newRow[5] = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb];
-    array_of_magic[i] = newRow;
+    sortedResults[i] = newRow;
   }
 
   // Bubble sort
   do {
     sorting = false;
-    for(var i = 0; i < array_of_magic.length -1; i++){
-      if(array_of_magic[i][5] > array_of_magic[i+1][5]){
+    // loop for i < sortedResults.length - 1 beacuse the last element has nothing to compare with after it
+    for(var i = 0; i < sortedResults.length - 1; i++){
+      // if the current item is bigger than the next one. if it is then swpa them using a temp var as a middle man
+      if(sortedResults[i][5] > sortedResults[i+1][5]){
         sorting = true;
-        var temp1 = array_of_magic[i];
-        var temp2 = array_of_magic[i+1];
-        array_of_magic[i] = temp2;
-        array_of_magic[i+1] = temp1;
+        var temp1 = sortedResults[i];
+        var temp2 = sortedResults[i+1];
+        sortedResults[i] = temp2;
+        sortedResults[i+1] = temp1;
       }
     }
-  } while (sorting);
-  // add values to rank column and conver milliseconds to MM:SS.mm format
-  for(var i = 0; i < array_of_magic.length; i++){
-    array_of_magic[i][0] = i+1;
-    array_of_magic[i][5] = millisReconvert(array_of_magic[i][5]);
+  } while (sorting); // keep looping sorting is true, when sorting is false the sort is completed in ascending order
 
+  // add values to rank column and conver milliseconds to MM:SS.mm format
+  for(var i = 0; i < sortedResults.length; i++){
+    sortedResults[i][0] = i+1; // add rank as the index of the loop + 1
+    sortedResults[i][5] = millisReconvert(sortedResults[i][5]); // MM:SS.mm format function
+    // insert the sorted 2d array into the results table
     var html = "<tr>";
-    for(var j = 0; j < array_of_magic[i].length; j++){
-      html += "<td>"+array_of_magic[i][j]+"</td>";
+    for(var j = 0; j < sortedResults[i].length; j++){
+      html += "<td>"+sortedResults[i][j]+"</td>";
     }
     html+="</tr>";
-
     $('table#calc-results-table').append(html);
   }
-
-  console.log(array_of_magic);
 }
