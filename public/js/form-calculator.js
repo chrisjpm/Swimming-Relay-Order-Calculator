@@ -99,14 +99,12 @@ function renderTableSwimmers(swimmers) {
 
 // Find all combinations of swimmers
 function findCombos(swimmers){
-  var relays = []; // init empty array for relays
-
   //finds if the input's name is 4 (for fc) or 1,2,3,4 (for medley)
   // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
   // the total number of combos is 4Cswimmers.length [4 Choose swimmers.length] (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
-  relays = k_combinations(swimmers, 4);
+  var relays = k_combinations(swimmers, 4);
   var invalidRelays = [];
-  if(document.getElementsByName("calc-relay-type")[0].value == 1, 2, 3, 4) { // if medley we need to pick out invalid relays (ie same swimmer and/or stroke > 1 times in 1 relay)
+  if(document.getElementsByName("calc-relay-type")[0].value != 4) { // if medley we need to pick out invalid relays (ie same swimmer and/or stroke > 1 times in 1 relay)
     //take out relays with same swimmer or stroke appearing more than once
     for (var i = 0; i < relays.length; i++) {
       for (var j = 0; j < 4; j++) {
