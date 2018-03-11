@@ -105,7 +105,7 @@ function findCombos(swimmers){
   // use the fucntion k_combinations from the lib to find all the combonations of swimmers in a set of 4
   // the total number of combos is 4Cswimmers.length [4 Choose swimmers.length] (= (swimmers.length)! / 4!*(swimmers.length - 4)!)
   relays = k_combinations(swimmers, 4);
-  var getTheseBoisOut = [];
+  var invalidRelays = [];
   if(document.getElementsByName("calc-relay-type")[0].value == 1, 2, 3, 4) { // if medley we need to pick out invalid relays (ie same swimmer and/or stroke > 1 times in 1 relay)
     //take out relays with same swimmer or stroke appearing more than once
     for (var i = 0; i < relays.length; i++) {
@@ -150,12 +150,12 @@ function renderTableResults(relays) {
   for (var i = 0; i < relays.length; i++) {
     var row$ = $('<tr/>');
     var newRow = [];
-    newRow[0] = null;
-    newRow[1] = relays[i][0].swimmer_forename + " " + relays[i][0].swimmer_surname;
-    newRow[2] = relays[i][1].swimmer_forename + " " + relays[i][1].swimmer_surname;
-    newRow[3] = relays[i][2].swimmer_forename + " " + relays[i][2].swimmer_surname;
-    newRow[4] = relays[i][3].swimmer_forename + " " + relays[i][3].swimmer_surname;
-    newRow[5] = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb];
+    newRow[0] = null; // rank - will be added after sorting
+    newRow[1] = relays[i][1].swimmer_forename + " " + relays[i][0].swimmer_surname; // bc
+    newRow[2] = relays[i][2].swimmer_forename + " " + relays[i][1].swimmer_surname; // brs
+    newRow[3] = relays[i][0].swimmer_forename + " " + relays[i][2].swimmer_surname; // fly
+    newRow[4] = relays[i][3].swimmer_forename + " " + relays[i][3].swimmer_surname; // free
+    newRow[5] = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb]; // total time
     sortedResults[i] = newRow;
   }
 
