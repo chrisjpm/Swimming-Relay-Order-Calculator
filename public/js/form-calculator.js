@@ -151,9 +151,9 @@ function renderTableResults(relays) {
     var row$ = $('<tr/>');
     var newRow = [];
     newRow[0] = null; // rank - will be added after sorting
-    newRow[1] = relays[i][1].swimmer_forename + " " + relays[i][0].swimmer_surname; // bc
-    newRow[2] = relays[i][2].swimmer_forename + " " + relays[i][1].swimmer_surname; // brs
-    newRow[3] = relays[i][0].swimmer_forename + " " + relays[i][2].swimmer_surname; // fly
+    newRow[1] = relays[i][1].swimmer_forename + " " + relays[i][1].swimmer_surname; // bc
+    newRow[2] = relays[i][2].swimmer_forename + " " + relays[i][2].swimmer_surname; // brs
+    newRow[3] = relays[i][0].swimmer_forename + " " + relays[i][0].swimmer_surname; // fly
     newRow[4] = relays[i][3].swimmer_forename + " " + relays[i][3].swimmer_surname; // free
     newRow[5] = relays[i][0][pb] + relays[i][1][pb] + relays[i][2][pb] + relays[i][3][pb]; // total time
     sortedResults[i] = newRow;
