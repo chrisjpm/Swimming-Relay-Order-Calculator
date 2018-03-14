@@ -123,12 +123,12 @@ function insertDistancePBs(swimmerId, distance_data, callback){
   );
 }
 
-// Request swimmers details for insterting into HTML table on the view records page
+// Request swimmers details for inserting into HTML table on the view records page
 app.post('/viewrecords', function (req, res) {
     con.query('SELECT swimmer_forename, swimmer_surname, swimmer_dob, swimmer_gender FROM sroc.swimmer ORDER BY swimmer_id DESC',
       function (err, result) {
         if(err) throw err;
-        console.log('Swimmer\'s details inserted into table');
+        console.log('Swimmer\'s details requested');
         res.send(result);
     });
 });

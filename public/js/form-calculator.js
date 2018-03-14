@@ -143,7 +143,7 @@ function renderTableResults(relays) {
   var sorting = true;
   // insert all the relays into the table
 
-  // put each tow in table into an array ready for sorting
+  // put each relay in a record then put them into an array of records, ready for sorting
   var sortedResults = [];
   for (var i = 0; i < relays.length; i++) {
     var row$ = $('<tr/>');
@@ -165,10 +165,9 @@ function renderTableResults(relays) {
       // if the current item is bigger than the next one. if it is then swpa them using a temp var as a middle man
       if(sortedResults[i][5] > sortedResults[i+1][5]){
         sorting = true;
-        var temp1 = sortedResults[i];
-        var temp2 = sortedResults[i+1];
-        sortedResults[i] = temp2;
-        sortedResults[i+1] = temp1;
+        var temp = sortedResults[i];
+        sortedResults[i] = sortedResults[i+1];
+        sortedResults[i+1] = temp;
       }
     }
   } while (sorting); // keep looping sorting is true, when sorting is false the sort is completed in ascending order
@@ -177,7 +176,7 @@ function renderTableResults(relays) {
   for(var i = 0; i < sortedResults.length; i++){
     sortedResults[i][0] = i+1; // add rank as the index of the loop + 1
     sortedResults[i][5] = millisReconvert(sortedResults[i][5]); // MM:SS.mm format function
-    // insert the sorted 2d array into the results table
+    // insert the sorted arrays of records into the results table
     var html = "<tr>";
     for(var j = 0; j < sortedResults[i].length; j++){
       html += "<td>"+sortedResults[i][j]+"</td>";
