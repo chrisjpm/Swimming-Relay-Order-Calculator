@@ -46,9 +46,31 @@ function relayType(r) {
 }
 // Convert millisecond back to normal time format - MM:SS.mm
 function millisReconvert(m) {
-  var millis = parseInt((m%1000)/100) // find the remaining milliseconds
-  var secs = parseInt((m/1000)%60); // find the highest value for seconds
-  var mins = parseInt((m/(1000*60))%60); // find the highest value for mins
+  // var millis = (Math.floor(m / 6000) > 99) ? 0 : Math.floor(m / 6000); // find the highest milliseconds value
+  // var secs = (Math.floor(m / 100) + (millis * 100) > 59) ? (millis * 100) : Math.floor(m / 100); // find the highest value for seconds
+  // var mins = Math.floor(m / 6000 + (secs * 6000)); // find the highest value for mins
+
+  // var timeLength = m.toString().length;
+  // var minsEndPos = timeLength - 2;
+
+  // var mins = (parseInt(m.toString().substring(1, (minsEndPos - 3))) / 6000) % 60;
+  // var secs = (parseInt(m.toString().substring((minsEndPos - 3), minsEndPos)) / 100) % 60;
+  // var millis = parseInt(m.toString().substring((timeLength - 2), timeLength));
+
+  //var mins = Math.floor((m / 60000) % 60); // find the highest value for mins
+  //var secs = Math.floor((m / 1000) % 60); // find the highest value for seconds
+  //var millis = Math.floor(m % 1000); // find the remaining milliseconds
+
+
+  console.log("Total m:" + m);
+  var secs = Math.floor((m / 1000) % 60);
+  var mins = Math.floor(((m / (1000*60)) % 60));
+
+  m = m - (secs * 1000) - (mins * 60000);
+  m /= 10;
+  var millis = Math.floor(m);
+
+
   // put a leading zero infront of number if it is less than 10
   if(mins < 10) {
     mins = "0" + mins;

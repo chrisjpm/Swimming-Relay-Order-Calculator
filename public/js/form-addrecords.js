@@ -75,6 +75,6 @@ function getMillisTime(stroke, distance) {
   var secs = parseInt($('#' + stroke + distance + 'secs').val());
   var millis = parseInt($('#' + stroke + distance + 'millis').val());
 
-  var totalMilliseconds = (mins * 60 * 1000) + (secs * 1000) + millis; // converting each input box to milliseconds then summing them
+  var totalMilliseconds = (mins * 60000) + (secs * 1000) + (millis * 10); // converting each input box to milliseconds then summing them
   return totalMilliseconds;
 }
