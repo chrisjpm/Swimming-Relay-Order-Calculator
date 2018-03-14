@@ -46,32 +46,21 @@ function relayType(r) {
 }
 // Convert millisecond back to normal time format - MM:SS.mm
 function millisReconvert(m) {
-  // var time = '';
-  // var mins = Math.floor((m / 60000) % 60); // find the highest value for mins
-  // var secs = Math.floor((m / 1000) % 60); // find the highest value for seconds
-  // var millis = m - ((mins * 60000) + (secs * 1000)); // find the remaining milliseconds
-  // // put a leading zero infront of number if it is less than 10
-  // if(mins < 10) {
-  //   mins = "0" + mins;
-  // }
-  // if(secs < 10) {
-  //   secs = "0" + secs;
-  // }
-  // if(millis < 10) {
-  //   millis = "0" + millis;
-  // }
-  //
-  // return mins + ":" + secs + "." + millis;
-  var milliseconds = parseInt((m%1000)/100)
-        , seconds = parseInt((m/1000)%60)
-        , minutes = parseInt((m/(1000*60))%60)
-        , hours = parseInt((m/(1000*60*60))%24);
+  var millis = parseInt((m%1000)/100) // find the remaining milliseconds
+  var secs = parseInt((m/1000)%60); // find the highest value for seconds
+  var mins = parseInt((m/(1000*60))%60); // find the highest value for mins
+  // put a leading zero infront of number if it is less than 10
+  if(mins < 10) {
+    mins = "0" + mins;
+  }
+  if(secs < 10) {
+    secs = "0" + secs;
+  }
+  if(millis < 10) {
+    millis = "0" + millis;
+  }
 
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+  return mins + ":" + secs + "." + millis;
 }
 // Make relay distcance
 function relayDistance(dist) {
