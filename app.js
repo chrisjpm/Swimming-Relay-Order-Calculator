@@ -8,6 +8,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
 
+// read vars from heroku at runtime
+const aws = require('aws-sdk');
+// vars for db con
+let s3 = new aws.S3({
+  host: process.env.S3_HOST,
+  user: process.env.S3_USER,
+  pass: process.env.S3_PASS
+});
+
 // assigning routes
 var index = require('./routes/index');
 var addrecords = require('./routes/addrecords');
@@ -19,9 +28,9 @@ var con = mysql.createConnection({
   // host: "173.194.106.215",
   // user: "admin", //test
   // password: "admin"
-  host: => ENV['db_host'],
-  user: => ENV['db_user'],
-  password: => ENV['db_pass']
+  host: host,
+  user: user,
+  password: pass
 });
 
 //check connection on app start
