@@ -8,20 +8,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
 
-// read vars from heroku at runtime
-const aws = require('aws-sdk');
 // vars for db con
-let s3 = new aws.S3({
-  host: process.env.S3_HOST,
-  user: process.env.S3_USER,
-  pass: process.env.S3_PASS
-});
+var host = process.env.DB_HOST;
+var user = process.env.DB_USER;
+var pass = process.env.DB_PASS;
 
-// assigning routes
-var index = require('./routes/index');
-var addrecords = require('./routes/addrecords');
-var viewrecords = require('./routes/viewrecords');
-var calculator = require('./routes/calculator');
 
 // create connection to Google Cloud sql database
 var con = mysql.createConnection({
@@ -38,6 +29,12 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
+
+// assigning routes
+var index = require('./routes/index');
+var addrecords = require('./routes/addrecords');
+var viewrecords = require('./routes/viewrecords');
+var calculator = require('./routes/calculator');
 
 // assign port
 var app = express();
