@@ -13,12 +13,8 @@ var host = process.env.DB_HOST;
 var user = process.env.DB_USER;
 var pass = process.env.DB_PASS;
 
-
 // create connection to Google Cloud sql database
 var con = mysql.createConnection({
-  // host: "173.194.106.215",
-  // user: "admin", //test
-  // password: "admin"
   host: host,
   user: user,
   password: pass
