@@ -17,7 +17,7 @@ var calculator = require('./routes/calculator');
 // create connection to Google Cloud sql database
 var con = mysql.createConnection({
   host: "173.194.106.215",
-  user: "admin",
+  user: "admin", //test
   password: "admin"
 });
 
