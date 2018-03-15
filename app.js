@@ -8,17 +8,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
 
-// assigning routes
-var index = require('./routes/index');
-var addrecords = require('./routes/addrecords');
-var viewrecords = require('./routes/viewrecords');
-var calculator = require('./routes/calculator');
+// vars for db con
+var host = process.env.DB_HOST;
+var user = process.env.DB_USER;
+var pass = process.env.DB_PASS;
 
 // create connection to Google Cloud sql database
 var con = mysql.createConnection({
-  host: "173.194.106.215",
-  user: "admin",
-  password: "admin"
+  host: host,
+  user: user,
+  password: pass
 });
 
 //check connection on app start
@@ -26,6 +25,12 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
+
+// assigning routes
+var index = require('./routes/index');
+var addrecords = require('./routes/addrecords');
+var viewrecords = require('./routes/viewrecords');
+var calculator = require('./routes/calculator');
 
 // assign port
 var app = express();

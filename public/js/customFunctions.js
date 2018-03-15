@@ -115,7 +115,7 @@ function exportCSV() {
     // seperate with comma
     csv.push(row.join(","));
   }
-  //  call download function
+  // call download function
   downloadCSV(csv.join("\n"));
 }
 // download the results CSV
