@@ -1,6 +1,6 @@
 // Call functions reagrding the form when the page is ready (loaded)
 $(document).ready(function() {
-  getSwimmerDetails()
+  getSwimmerDetails();
 });
 
 // Get applicable swimmers
