@@ -1,7 +1,7 @@
 // Call functions reagrding the form when the page is ready (loaded)
 $(document).ready(function() {
   removeEnterSubmit();
-
+  blacklist();
 });
 // Prevent the form submitting when accidently hitting enter
 function removeEnterSubmit() {
