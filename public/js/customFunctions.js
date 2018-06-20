@@ -14,12 +14,16 @@ function removeEnterSubmit() {
 }
 // Blacklist
 function blacklist() {
-  $("button[type='submit']").onclick(function(e) {
-      var chr = String.fromCharCode(e.which);
-      if ("></\"".indexOf(chr) >= 0)
-          return false;
-          alert("Remove special characters!");
-  };
+  $('input').on('input', function() {
+    var c = this.selectionStart,
+      r = /[^a-z0-9]/gi,
+      v = $(this).val();
+    if (r.test(v)) {
+      $(this).val(v.replace(r, ''));
+      c--;
+    }
+    this.setSelectionRange(c, c);
+  });
 }
 // Make the date look like a UK date
 function beautifyDate(d) {
@@ -74,7 +78,7 @@ function millisReconvert(m) {
 
   console.log("Total m:" + m);
   var secs = Math.floor((m / 1000) % 60);
-  var mins = Math.floor(((m / (1000*60)) % 60));
+  var mins = Math.floor(((m / (1000 * 60)) % 60));
 
   m = m - (secs * 1000) - (mins * 60000);
   m /= 10;
@@ -82,13 +86,13 @@ function millisReconvert(m) {
 
 
   // put a leading zero infront of number if it is less than 10
-  if(mins < 10) {
+  if (mins < 10) {
     mins = "0" + mins;
   }
-  if(secs < 10) {
+  if (secs < 10) {
     secs = "0" + secs;
   }
-  if(millis < 10) {
+  if (millis < 10) {
     millis = "0" + millis;
   }
 
@@ -117,7 +121,7 @@ function exportCSV() {
   // nested loop adding the HTML records into a CSV file
   for (var i = 0; i < rows.length; i++) {
     var row = [], // init array empty
-    cols = rows[i].querySelectorAll("td, th"); // select the table fields with the values in them
+      cols = rows[i].querySelectorAll("td, th"); // select the table fields with the values in them
     // add HTML table row to CSv row
     for (var j = 0; j < cols.length; j++) {
       row.push(cols[j].innerText);
