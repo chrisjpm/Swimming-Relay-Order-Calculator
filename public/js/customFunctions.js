@@ -1,15 +1,25 @@
 // Call functions reagrding the form when the page is ready (loaded)
 $(document).ready(function() {
   removeEnterSubmit();
+
 });
 // Prevent the form submitting when accidently hitting enter
 function removeEnterSubmit() {
-  $(window).keydown(function(event) {
-    if (event.keyCode == 13) {
-      event.preventDefault();
+  $(window).keydown(function(e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
       return false;
     }
   });
+}
+// Blacklist
+function blacklist() {
+  $("button[type='submit']").onclick(function(e) {
+      var chr = String.fromCharCode(e.which);
+      if ("></\"".indexOf(chr) >= 0)
+          return false;
+          alert("Remove special characters!");
+  };
 }
 // Make the date look like a UK date
 function beautifyDate(d) {
