@@ -34,7 +34,7 @@ var calculator = require('./routes/calculator');
 
 // assign port
 var app = express();
-var port = (process.env.PORT || 8082); //process.env.PORT required for heroku
+var port = (process.env.PORT || 8083); //process.env.PORT required for heroku
 var server = http.createServer(app);
 
 // view engine setup
