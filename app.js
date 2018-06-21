@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
+var diet = require('diet');
 
 // vars for db con
 var host = process.env.DB_HOST;
@@ -34,7 +35,7 @@ var calculator = require('./routes/calculator');
 
 // assign port
 var app = express();
-var port = (process.env.PORT || 8083); //process.env.PORT required for heroku
+var port = (process.env.PORT || 8082); //process.env.PORT required for heroku
 var server = http.createServer(app);
 
 // view engine setup
