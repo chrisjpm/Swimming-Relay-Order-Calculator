@@ -57,7 +57,7 @@ function addSwimmer() {
         data : JSON.stringify(values), // convert the var values into JSON string to be sent to the server
         success : function(response) { // on success, the window will create a pop up confirm to the user their swimmer has been added
           if (response) {
-            alert("Success! Your swimmer and his/her times have been added to our databse, check the View Records Page if they are there. Most recent entries will be at the top.");
+            alert("Success! Your swimmer and their times have been added to our databse, check the View Records Page if they are there. Most recent entries will be at the top.");
             $('form.addSwimmer')[0].reset(); // Clear form
           }
         }

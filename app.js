@@ -21,7 +21,7 @@ var con = mysql.createConnection({
   password: pass
 });
 
-//check connection on app start
+// check connection on app start
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -35,7 +35,7 @@ var calculator = require('./routes/calculator');
 
 // assign port
 var app = express();
-var port = (process.env.PORT || 8082); //process.env.PORT required for heroku
+var port = (process.env.PORT || 80); // 80 for localhost
 var server = http.createServer(app);
 
 // view engine setup

@@ -1,13 +1,15 @@
 <div class="top-container">
   <div class="white-text">
     <h2>Add Records</h2>
-    <p class="blockquote-white">Fill out the form below with one of your swimmer's personal details and a selection of their P.B.s. Once you click the green submit button at the bottom of the page the form will be cleared and you can enter a new swimmer's details. <strong>All fields are required.</strong></p>
+    <p class="blockquote-white">Fill out the form below with one of your swimmer's personal details and a selection of their P.B.s. Once you click the green submit button at the bottom of the page the form will be cleared and you can enter a new
+      swimmer's details. <strong>All fields are required.</strong></p>
     <img src="../public/images/scrolldown3.gif" alt="Scroll Down Animation">
   </div>
 </div>
 <div class="body-container">
   <!-- HTML form for use to add a swimmer to the database. It will ask for their personal details and all their Personal Best tines. -->
-  <form class="addSwimmer" method="post"><!--After submit will stay on same page and clear the form so the user can enter a new swimmer | action="..." is not required in HTML5-->
+  <form class="addSwimmer" method="post">
+    <!--After submit will stay on same page and clear the form so the user can enter a new swimmer | action="..." is not required in HTML5-->
     <!--Personal Details-->
     <div class="row">
       <div class="col-2">
@@ -32,7 +34,7 @@
         <h3 class="white-text left">.</h3> <!-- White text to hide text but keep consistant height -->
       </div>
       <div class="col-4">
-        <input type="date" name="swimmer_dob"  placeholder="Date of Birth, in format: &nbsp;&nbsp;" onchange="this.className=(this.value!=''?'has-value':'')" required>
+        <input type="date" name="swimmer_dob" placeholder="Date of Birth, in format: &nbsp;&nbsp;" onchange="this.className=(this.value!=''?'has-value':'')" required>
       </div>
     </div>
 
@@ -362,10 +364,10 @@
       </div>
     </div>
 
-    <br  />
-    <br  />
-    <br  />
-    <br  />
+    <br />
+    <br />
+    <br />
+    <br />
 
     <!--Notice-->
     <div class="row">
@@ -381,8 +383,8 @@
       </div>
     </div>
 
-    <br  />
-    <br  />
+    <br />
+    <br />
 
     <!--Submit Button-->
     <!-- Second button to find invalid fields -->
@@ -390,7 +392,9 @@
     <button type="submit" class="btn btn-submit shadow white-text" id="swimmer-submit">
       <div class="row">
         <div class="col-5"></div>
-        <div class="col-1"><h3>SUBMIT</h3></div>
+        <div class="col-1">
+          <h3>SUBMIT</h3>
+        </div>
         <div class="col-1"><img src="../public/images/submit.png" alt="Submit Icon"></div>
         <div class="col-5"></div>
       </div>

@@ -16,7 +16,7 @@ function removeEnterSubmit() {
 function blacklist() {
   $('input').on('input', function() {
     var c = this.selectionStart,
-      r = /[^a-z0-9]/gi,
+      r = /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi,
       v = $(this).val();
     if (r.test(v)) {
       $(this).val(v.replace(r, ''));
