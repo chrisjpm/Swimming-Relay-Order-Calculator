@@ -21,11 +21,12 @@ var con = mysql.createConnection({
   password: pass
 });
 
+// DATABSE DOWN
 // check connection on app start
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
 
 // assigning routes
 var index = require('./routes/index');
